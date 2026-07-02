@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Inscripciones | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="congreso, matemática, educación, Paraguay, inscripciones" name="keywords">
+  <meta content="Inscripciones al Congreso Nacional de Educación Matemática Papapykuaa." name="description">
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/venobox/venobox.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    /* ---- Encabezado de página interna ---- */
+    #page-header {
+      background: linear-gradient(rgba(6, 12, 34, 0.7), rgba(6, 12, 34, 0.7)),
+                  url('img/intro-bg.jpg') center center no-repeat;
+      background-size: cover;
+      padding: 80px 0 40px;
+      text-align: center;
+      color: #fff;
+    }
+    #page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    #page-header p {
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    /* ---- Layout principal con sidebar ---- */
+    #inscripciones-main {
+      padding: 50px 0;
+      background: #f9f9f9;
+    }
+
+    /* ---- Secciones de inscripción ---- */
+    .inscripcion-section {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      padding: 35px 30px;
+      margin-bottom: 35px;
+    }
+    .inscripcion-section h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #191919;
+      margin-bottom: 5px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #f82249;
+    }
+    .inscripcion-section p {
+      color: #555;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    /* ---- Botones de inscripción ---- */
+    .btn-inscribirse {
+      display: inline-block;
+      background: #f82249;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      transition: background 0.3s ease;
+    }
+    .btn-inscribirse:hover {
+      background: #c70032;
+      color: #fff;
+      text-decoration: none;
+    }
+    .btn-inscribirse i {
+      margin-right: 8px;
+    }
+    .btn-group-inscripcion {
+      margin-top: 10px;
+    }
+
+    /* ---- Documentos Importantes ---- */
+    .documentos-importantes {
+      background: #f2f7ff;
+      border-left: 4px solid #1a6cc4;
+      border-radius: 6px;
+      padding: 22px 25px;
+      margin-top: 25px;
+    }
+    .documentos-importantes h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a6cc4;
+      margin-bottom: 15px;
+    }
+    .documentos-importantes h4 i {
+      margin-right: 8px;
+    }
+    .documentos-importantes ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .documentos-importantes ul li {
+      padding: 6px 0;
+      border-bottom: 1px solid #dde6f5;
+    }
+    .documentos-importantes ul li:last-child {
+      border-bottom: none;
+    }
+    .documentos-importantes ul li a {
+      color: #1a6cc4;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .documentos-importantes ul li a:hover {
+      color: #f82249;
+      text-decoration: underline;
+    }
+    .documentos-importantes ul li i {
+      margin-right: 8px;
+      color: #f82249;
+    }
+
+    /* ---- Sidebar de Auspiciantes ---- */
+    .sidebar-auspiciantes {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      padding: 25px 20px;
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-auspiciantes h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #191919;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #f82249;
+      text-align: center;
+    }
+    .sidebar-auspiciantes .supporter-logo {
+      text-align: center;
+      padding: 10px 5px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .sidebar-auspiciantes .supporter-logo:last-child {
+      border-bottom: none;
+    }
+    .sidebar-auspiciantes .supporter-logo img {
+      max-height: 60px;
+      max-width: 100%;
+      object-fit: contain;
+      filter: grayscale(30%);
+      transition: filter 0.3s;
+    }
+    .sidebar-auspiciantes .supporter-logo img:hover {
+      filter: grayscale(0%);
+    }
+
+    /* ---- Breadcrumb ---- */
+    .breadcrumb-nav {
+      background: #eee;
+      padding: 10px 0;
+      font-size: 0.9rem;
+    }
+    .breadcrumb-nav a {
+      color: #f82249;
+    }
+    .breadcrumb-nav .separator {
+      margin: 0 8px;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div id="index-header" class="container center-menu">
+
+      <div id="logo" class="index-logo pull-left no-visible">
+        <a href="index.html"><img src="img/logo.png" alt="Papapykuaa" title="Papapykuaa"></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="index.html#intro">Inicio</a></li>
+          <li><a href="index.html#about">Acerca de</a></li>
+          <li><a href="index.html#schedule">Programa</a></li>
+          <li><a href="index.html#venue">Lugar</a></li>
+          <li><a href="index.html#buy-tickets">Ediciones Anteriores</a></li>
+          <li><a href="index.html#supporters">Apoyan</a></li>
+          <li class="menu-active buy-tickets"><a href="inscripciones.html">Inscripciones</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Encabezado de página
+  ============================-->
+  <div id="page-header">
+    <div class="container">
+      <h1>Inscripciones</h1>
+      <p>Congreso Nacional de Educación Matemática &mdash; Papapykuaa</p>
+      <p><i class="fa fa-calendar-o"></i>&nbsp; 15 al 17 de Octubre de 2026 &nbsp;|&nbsp;
+         <i class="fa fa-map-marker"></i>&nbsp; Universidad Nacional de Itapúa, Paraguay</p>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-nav">
+    <div class="container">
+      <a href="index.html">Inicio</a>
+      <span class="separator">/</span>
+      <strong>Inscripciones</strong>
+    </div>
+  </div>
+
+  <!--==========================
+    Contenido principal
+  ============================-->
+  <section id="inscripciones-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- ======= Columna principal ======= -->
+        <div class="col-lg-8">
+
+          <!-- ====== Sección: Disertantes y Ponentes ====== -->
+          <div class="inscripcion-section wow fadeInUp">
+            <h2><i class="fa fa-graduation-cap" style="color:#f82249; margin-right:10px;"></i>Disertantes y Ponentes</h2>
+            <p>
+              Si deseas presentar una ponencia, taller, charla o póster científico en el Congreso Nacional
+              de Educación Matemática <strong>Papapykuaa</strong>, completá el formulario de inscripción
+              correspondiente. Recordá revisar los documentos importantes antes de enviar tu propuesta.
+            </p>
+            <div class="btn-group-inscripcion">
+              <a href="#" class="btn-inscribirse">
+                <i class="fa fa-pencil"></i> Inscribirse
+              </a>
+
+            <!-- Documentos importantes -->
+            <div class="documentos-importantes">
+              <h4><i class="fa fa-folder-open"></i> Documentos Importantes</h4>
+              <ul>
+                <li>
+                  <i class="fa fa-file-pdf-o"></i>
+                  <a href="doc/A. GUÍA  DE BASES Y CONDICIONES PARA LA PRESENTACIÓN TRABAJOS AL CONGRESO.pdf" target="_blank" rel="noopener noreferrer">
+                    A. Guía de Bases y Condiciones para la Presentación de Trabajos al Congreso
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-file-powerpoint-o"></i>
+                  <a href="doc/B. MODELO POSTER.pptx" target="_blank" rel="noopener noreferrer">
+                    B. Modelo de Póster
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-file-word-o"></i>
+                  <a href="doc/C-PLANTILLA _ TIPO ARTÍCULO.docx" target="_blank" rel="noopener noreferrer">
+                    C. Plantilla – Tipo Artículo
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-file-word-o"></i>
+                  <a href="doc/D. PLANTILLA _RESUMEN_BUENAS PRACTICAS.docx" target="_blank" rel="noopener noreferrer">
+                    D. Plantilla – Resumen Buenas Prácticas
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-file-word-o"></i>
+                  <a href="doc/E. PLANTILLA _RESUMEN_TALLER.docx" target="_blank" rel="noopener noreferrer">
+                    E. Plantilla – Resumen Taller
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Fin sección Disertantes y Ponentes -->
+
+          <!-- ====== Sección: Participantes ====== -->
+          <div class="inscripcion-section wow fadeInUp">
+            <h2><i class="fa fa-users" style="color:#f82249; margin-right:10px;"></i>Participantes</h2>
+            <p>
+              Si deseas asistir al Congreso Nacional de Educación Matemática <strong>Papapykuaa</strong>
+              como participante (sin presentar trabajos), completá el formulario de inscripción.
+              La participación está abierta a docentes, investigadores, estudiantes y todo público interesado
+              en la educación matemática.
+            </p>
+            <div class="btn-group-inscripcion">
+              <a href="#" class="btn-inscribirse">
+                <i class="fa fa-user-plus"></i> Inscribirse
+              </a>
+            </div>
+          </div>
+          <!-- Fin sección Participantes -->
+
+        </div>
+        <!-- Fin columna principal -->
+
+        <!-- ======= Sidebar: Auspiciantes ======= -->
+        <div class="col-lg-4">
+          <div class="sidebar-auspiciantes wow fadeInRight">
+            <h4><i class="fa fa-handshake-o" style="margin-right:8px;"></i>Organizan y Apoyan</h4>
+
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_uni.png" class="img-fluid" alt="Universidad Nacional de Itapúa">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_una.png" class="img-fluid" alt="Universidad Nacional de Asunción">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_unc.png" class="img-fluid" alt="Universidad Nacional de Concepción">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_une.png" class="img-fluid" alt="Universidad Nacional del Este">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_unp.png" class="img-fluid" alt="Universidad Nacional de Pilar">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_unamis.png" class="img-fluid" alt="Universidad Nacional de Misiones">
+            </div>
+            <div class="supporter-logo">
+              <a href="doc/resmec.pdf" target="_blank" rel="noopener noreferrer">
+                <img src="img/supporters/logo_mec.png" class="img-fluid" alt="MEC">
+              </a>
+            </div>
+            <div class="supporter-logo">
+              <a href="doc/resconacyt.pdf" target="_blank" rel="noopener noreferrer">
+                <img src="img/supporters/logo_conacyt.png" class="img-fluid" alt="CONACYT">
+              </a>
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_smp.png" class="img-fluid" alt="SMP">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_aupp.png" class="img-fluid" alt="AUPP">
+            </div>
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_omapa.png" class="img-fluid" alt="OMAPA">
+            </div>
+          </div>
+        </div>
+        <!-- Fin sidebar -->
+
+      </div>
+    </div>
+  </section>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-6 footer-info">
+            <img src="img/logo.png" alt="Papapykuaa">
+            <p>El Congreso Nacional de Educación Matemática "Papapykuaa" es un evento académico y
+              científico que se propone abordar los desafíos actuales en la enseñanza de las
+              matemáticas en Paraguay. La Universidad Nacional de Itapúa, en conjunto con la
+              Universidad Nacional de Asunción, la Universidad Nacional de Concepción,
+              la Universidad Nacional de Pilar y la Universidad Nacional de Misiones, cuentan con una
+              sólida trayectoria en la organización y participación en eventos académicos y científicos.</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Links</h4>
+            <ul>
+              <li><i class="fa fa-angle-right"></i> <a href="index.html#intro">Inicio</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="index.html#about">Acerca de</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="index.html#schedule">Programa</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="index.html#supporters">Apoyan</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="inscripciones.html">Inscripciones</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contactos</h4>
+            <p>
+              Abg Lorenzo Zacarías 255, <br>
+              Barrio Ka'aguy rory, Encarnación 070101, <br>
+              Paraguay <br>
+              <strong>Teléfono:</strong> (+595)71 206990 <br>
+            </p>
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>T&amp;D - Tecnología y Desarrollo</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/venobox/venobox.min.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
