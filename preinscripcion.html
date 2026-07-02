@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Inscripciones | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <title>Pre-inscripción Participantes | Congreso Nacional de Educación Matemática - Papapykuaa</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="congreso, matemática, educación, Paraguay, inscripciones" name="keywords">
-  <meta content="Inscripciones al Congreso Nacional de Educación Matemática Papapykuaa." name="description">
+  <meta content="congreso, matemática, educación, Paraguay, pre-inscripción, participantes" name="keywords">
+  <meta content="Pre-inscripción para participantes del Congreso Nacional de Educación Matemática Papapykuaa." name="description">
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -49,20 +49,20 @@
     }
 
     /* ---- Layout principal con sidebar ---- */
-    #inscripciones-main {
+    #preinscripcion-main {
       padding: 50px 0;
       background: #f9f9f9;
     }
 
-    /* ---- Secciones de inscripción ---- */
-    .inscripcion-section {
+    /* ---- Tarjeta del formulario ---- */
+    .form-section {
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 15px rgba(0,0,0,0.08);
       padding: 35px 30px;
       margin-bottom: 35px;
     }
-    .inscripcion-section h2 {
+    .form-section h2 {
       font-size: 1.6rem;
       font-weight: 700;
       color: #191919;
@@ -70,81 +70,119 @@
       padding-bottom: 12px;
       border-bottom: 3px solid #f82249;
     }
-    .inscripcion-section p {
+    .form-section p.form-intro {
       color: #555;
       margin-top: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       line-height: 1.7;
     }
 
-    /* ---- Botones de inscripción ---- */
-    .btn-inscribirse {
+    /* ---- Campos del formulario ---- */
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .form-group label span.required {
+      color: #f82249;
+      margin-left: 3px;
+    }
+    .form-control {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      color: #333;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-control:focus {
+      border-color: #f82249;
+      box-shadow: 0 0 0 3px rgba(248, 34, 73, 0.12);
+      outline: none;
+    }
+    .form-control::placeholder {
+      color: #aaa;
+    }
+
+    /* ---- Input grupo teléfono ---- */
+    .input-group-text {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-right: none;
+      color: #555;
+      font-size: 0.95rem;
+      padding: 10px 14px;
+      border-radius: 4px 0 0 4px;
+    }
+    .input-group .form-control {
+      border-radius: 0 4px 4px 0;
+    }
+    .whatsapp-note {
+      font-size: 0.82rem;
+      color: #25D366;
+      margin-top: 5px;
+      display: block;
+    }
+    .whatsapp-note i {
+      margin-right: 4px;
+    }
+
+    /* ---- Botón enviar ---- */
+    .btn-enviar {
       display: inline-block;
       background: #f82249;
+      color: #fff;
+      padding: 12px 40px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+    .btn-enviar:hover {
+      background: #c70032;
+      color: #fff;
+    }
+    .btn-enviar i {
+      margin-right: 8px;
+    }
+    .btn-volver {
+      display: inline-block;
+      background: #555;
       color: #fff;
       padding: 12px 30px;
       border-radius: 4px;
       font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
+      margin-top: 10px;
       margin-right: 10px;
-      margin-bottom: 10px;
       transition: background 0.3s ease;
     }
-    .btn-inscribirse:hover {
-      background: #c70032;
+    .btn-volver:hover {
+      background: #333;
       color: #fff;
       text-decoration: none;
     }
-    .btn-inscribirse i {
+    .btn-volver i {
       margin-right: 8px;
-    }
-    .btn-group-inscripcion {
-      margin-top: 10px;
     }
 
-    /* ---- Documentos Importantes ---- */
-    .documentos-importantes {
-      background: #f2f7ff;
-      border-left: 4px solid #1a6cc4;
+    /* ---- Nota informativa ---- */
+    .info-note {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
       border-radius: 6px;
-      padding: 22px 25px;
-      margin-top: 25px;
+      padding: 14px 18px;
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+      color: #555;
     }
-    .documentos-importantes h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1a6cc4;
-      margin-bottom: 15px;
-    }
-    .documentos-importantes h4 i {
+    .info-note i {
+      color: #ffc107;
       margin-right: 8px;
-    }
-    .documentos-importantes ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .documentos-importantes ul li {
-      padding: 6px 0;
-      border-bottom: 1px solid #dde6f5;
-    }
-    .documentos-importantes ul li:last-child {
-      border-bottom: none;
-    }
-    .documentos-importantes ul li a {
-      color: #1a6cc4;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .documentos-importantes ul li a:hover {
-      color: #f82249;
-      text-decoration: underline;
-    }
-    .documentos-importantes ul li i {
-      margin-right: 8px;
-      color: #f82249;
     }
 
     /* ---- Sidebar de Auspiciantes ---- */
@@ -197,6 +235,22 @@
       margin: 0 8px;
       color: #999;
     }
+
+    /* ---- Mensaje de éxito ---- */
+    #success-message {
+      display: none;
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      border-radius: 6px;
+      padding: 20px 25px;
+      margin-top: 20px;
+      color: #2e7d32;
+      font-weight: 500;
+    }
+    #success-message i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 
@@ -222,16 +276,16 @@
           <li><a href="index.html#supporters">Apoyan</a></li>
           <li class="menu-active buy-tickets"><a href="inscripciones.html">Inscripciones</a></li>
         </ul>
-      </nav><!-- #nav-menu-container -->
+      </nav>
     </div>
-  </header><!-- #header -->
+  </header>
 
   <!--==========================
     Encabezado de página
   ============================-->
   <div id="page-header">
     <div class="container">
-      <h1>Inscripciones</h1>
+      <h1>Pre-inscripción de Participantes</h1>
       <p>Congreso Nacional de Educación Matemática &mdash; Papapykuaa</p>
       <p><i class="fa fa-calendar-o"></i>&nbsp; 15 al 17 de Octubre de 2026 &nbsp;|&nbsp;
          <i class="fa fa-map-marker"></i>&nbsp; Universidad Nacional de Itapúa, Paraguay</p>
@@ -243,92 +297,108 @@
     <div class="container">
       <a href="index.html">Inicio</a>
       <span class="separator">/</span>
-      <strong>Inscripciones</strong>
+      <a href="inscripciones.html">Inscripciones</a>
+      <span class="separator">/</span>
+      <strong>Pre-inscripción de Participantes</strong>
     </div>
   </div>
 
   <!--==========================
     Contenido principal
   ============================-->
-  <section id="inscripciones-main">
+  <section id="preinscripcion-main">
     <div class="container">
       <div class="row">
 
-        <!-- ======= Columna principal ======= -->
+        <!-- ======= Columna principal: Formulario ======= -->
         <div class="col-lg-8">
-
-          <!-- ====== Sección: Disertantes y Ponentes ====== -->
-          <div class="inscripcion-section wow fadeInUp">
-            <h2><i class="fa fa-graduation-cap" style="color:#f82249; margin-right:10px;"></i>Disertantes y Ponentes</h2>
-            <p>
-              Si deseas presentar una ponencia, taller, charla o póster científico en el Congreso Nacional
-              de Educación Matemática <strong>Papapykuaa</strong>, completá el formulario de inscripción
-              correspondiente. Recordá revisar los documentos importantes antes de enviar tu propuesta.
+          <div class="form-section wow fadeInUp">
+            <h2><i class="fa fa-user-plus" style="color:#f82249; margin-right:10px;"></i>Pre-inscripción de Participantes</h2>
+            <p class="form-intro">
+              Completá el siguiente formulario para registrar tu pre-inscripción como participante
+              en el Congreso Nacional de Educación Matemática <strong>Papapykuaa</strong>.
+              Todos los campos marcados con <span style="color:#f82249;">*</span> son obligatorios.
             </p>
-            <div class="btn-group-inscripcion">
-              <a href="https://forms.gle/DfUjpofKATbP9sYU8" class="btn-inscribirse">
-                <i class="fa fa-pencil"></i> Inscribirse
-              </a>
+
+            <div class="info-note">
+              <i class="fa fa-info-circle"></i>
+              Una vez enviado el formulario, recibirás un correo de confirmación con los próximos pasos para completar tu inscripción.
             </div>
 
-            <!-- Documentos importantes -->
-            <div class="documentos-importantes">
-              <h4><i class="fa fa-folder-open"></i> Documentos Importantes</h4>
-              <ul>
-                <li>
-                  <i class="fa fa-file-pdf-o"></i>
-                  <a href="doc/A. GUÍA  DE BASES Y CONDICIONES PARA LA PRESENTACIÓN TRABAJOS AL CONGRESO.pdf" target="_blank" rel="noopener noreferrer">
-                    A. Guía de Bases y Condiciones para la Presentación de Trabajos al Congreso
-                  </a>
-                </li>
-                <li>
-                  <i class="fa fa-file-powerpoint-o"></i>
-                  <a href="doc/B. MODELO POSTER.pptx" target="_blank" rel="noopener noreferrer">
-                    B. Modelo de Póster
-                  </a>
-                </li>
-                <li>
-                  <i class="fa fa-file-word-o"></i>
-                  <a href="doc/C-PLANTILLA _ TIPO ARTÍCULO.docx" target="_blank" rel="noopener noreferrer">
-                    C. Plantilla – Tipo Artículo
-                  </a>
-                </li>
-                <li>
-                  <i class="fa fa-file-word-o"></i>
-                  <a href="doc/D. PLANTILLA _RESUMEN_BUENAS PRACTICAS.docx" target="_blank" rel="noopener noreferrer">
-                    D. Plantilla – Resumen Buenas Prácticas
-                  </a>
-                </li>
-                <li>
-                  <i class="fa fa-file-word-o"></i>
-                  <a href="doc/E. PLANTILLA _RESUMEN_TALLER.docx" target="_blank" rel="noopener noreferrer">
-                    E. Plantilla – Resumen Taller
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <form id="form-preinscripcion" novalidate>
+
+              <!-- Nombre y Apellido en la misma fila -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="nombre">Nombre <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="nombre" name="nombre"
+                           placeholder="Ej: María" required>
+                    <div class="invalid-feedback">Por favor ingresá tu nombre.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="apellido">Apellido <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="apellido" name="apellido"
+                           placeholder="Ej: González" required>
+                    <div class="invalid-feedback">Por favor ingresá tu apellido.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Número de Documento -->
+              <div class="form-group">
+                <label for="documento">Número de Documento <span class="required">*</span></label>
+                <input type="text" class="form-control" id="documento" name="documento"
+                       placeholder="Ej: 4567890" required>
+                <div class="invalid-feedback">Por favor ingresá tu número de documento.</div>
+              </div>
+
+              <!-- Correo Electrónico -->
+              <div class="form-group">
+                <label for="email">Correo Electrónico <span class="required">*</span></label>
+                <input type="email" class="form-control" id="email" name="email"
+                       placeholder="Ej: maria.gonzalez@correo.com" required>
+                <div class="invalid-feedback">Por favor ingresá un correo electrónico válido.</div>
+              </div>
+
+              <!-- Número de Teléfono con WhatsApp -->
+              <div class="form-group">
+                <label for="telefono">Número de Teléfono <span class="required">*</span></label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-phone"></i>&nbsp;</span>
+                  </div>
+                  <input type="tel" class="form-control" id="telefono" name="telefono"
+                         placeholder="Ej: 0981 234 567" required>
+                </div>
+                <small class="whatsapp-note"><i class="fa fa-whatsapp"></i>Tu número de WhatsApp</small>
+                <div class="invalid-feedback" style="display:block; visibility:hidden;" id="telefono-error">
+                  Por favor ingresá tu número de teléfono.
+                </div>
+              </div>
+
+              <!-- Botones -->
+              <div class="form-actions" style="margin-top: 30px;">
+                <a href="inscripciones.html" class="btn-volver">
+                  <i class="fa fa-arrow-left"></i> Volver
+                </a>
+                <button type="submit" class="btn-enviar">
+                  <i class="fa fa-paper-plane"></i> Enviar Pre-inscripción
+                </button>
+              </div>
+
+              <!-- Mensaje de éxito -->
+              <div id="success-message">
+                <i class="fa fa-check-circle"></i>
+                ¡Tu pre-inscripción fue enviada con éxito! En breve recibirás un correo de confirmación.
+              </div>
+
+            </form>
           </div>
-          <!-- Fin sección Disertantes y Ponentes -->
-
-          <!-- ====== Sección: Participantes ====== -->
-          <div class="inscripcion-section wow fadeInUp">
-            <h2><i class="fa fa-users" style="color:#f82249; margin-right:10px;"></i>Participantes</h2>
-            <p>
-              Si deseas asistir al Congreso Nacional de Educación Matemática <strong>Papapykuaa</strong>
-              como participante (sin presentar trabajos), completá el formulario de inscripción.
-              La participación está abierta a docentes, investigadores, estudiantes y todo público interesado
-              en la educación matemática.
-            </p>
-            <div class="btn-group-inscripcion">
-              <a href="preinscripcion.html" class="btn-inscribirse">
-                <i class="fa fa-user-plus"></i> Inscribirse
-              </a>
-            </div>
-          </div>
-          <!-- Fin sección Participantes -->
-
         </div>
-        <!-- Fin columna principal -->
+        <!-- Fin columna formulario -->
 
         <!-- ======= Sidebar: Auspiciantes ======= -->
         <div class="col-lg-4">
@@ -438,7 +508,7 @@
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
-  </footer><!-- #footer -->
+  </footer>
 
   <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
@@ -454,6 +524,41 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+
+  <script>
+    // Validación y envío del formulario
+    (function () {
+      var form = document.getElementById('form-preinscripcion');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Validar teléfono manualmente (Bootstrap no valida input-group bien)
+        var tel = document.getElementById('telefono');
+        var telError = document.getElementById('telefono-error');
+        var telValido = tel.value.trim() !== '';
+        if (!telValido) {
+          telError.style.visibility = 'visible';
+          tel.classList.add('is-invalid');
+        } else {
+          telError.style.visibility = 'hidden';
+          tel.classList.remove('is-invalid');
+        }
+
+        // Validación nativa de Bootstrap
+        if (!form.checkValidity() || !telValido) {
+          form.classList.add('was-validated');
+          return;
+        }
+
+        // Si todo es válido: mostrar mensaje de éxito y resetear
+        form.classList.remove('was-validated');
+        form.reset();
+        document.getElementById('success-message').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('success-message').offsetTop - 100, behavior: 'smooth' });
+      });
+    })();
+  </script>
 
 </body>
 </html>
