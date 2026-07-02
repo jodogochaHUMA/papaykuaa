@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Congreso Nacional de Educación Matemática | Papapykuaa</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="congreso, matemática, educación, Paraguay" name="keywords">
+  <meta content="El Congreso Nacional de Educación Matemática “Papapykuaa” se propone abordar los desafíos
+  actuales en la enseñanza de las matemáticas en Paraguay." name="description">
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/venobox/venobox.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: TheEvent
+    Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+
+  <style>
+    /* Contenedor general */
+    #con {
+      max-width: 1400px;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      height: 95vh;
+    }
+
+    /* Barra superior con botones y controles */
+    #toolbar {
+      background: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #toolbar-left, #toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    #toolbar button {
+      background: #555;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      color: #fff;
+    }
+    #toolbar button:hover {
+      background: #777;
+    }
+    #toolbar input[type="number"] {
+      width: 60px;
+      text-align: center;
+    }
+    #toolbar span {
+      font-weight: bold;
+    }
+
+    /* Contenedor principal: thumbnails a la izquierda y flipbook a la derecha */
+    #main2 {
+      flex: 1;
+      display: flex;
+      overflow: hidden; /* para que no aparezca scroll no deseado */
+    }
+
+    /* Panel de thumbnails (miniaturas) */
+    #thumbnails-panel {
+      width: 200px;
+      background: #f8f8f8;
+      border-right: 1px solid #ccc;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    #thumbnails-panel h3 {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      text-align: center;
+    }
+    .thumb-page {
+      width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+    }
+    .thumb-page:hover {
+      border-color: #999;
+    }
+    .thumb-page canvas {
+      width: 100%;
+      display: block;
+    }
+    .thumb-label {
+      position: absolute;
+      bottom: 2px;
+      right: 5px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    /* Flipbook (2 páginas) */
+    #flipbook-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ccc;
+      position: relative;
+      overflow: auto;
+    }
+
+    .page {
+      background: #fff; /* Fondo blanco */
+      width: 500px; /* la mitad de #flipbook */
+      height: 700px;
+      overflow: visible; 
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    .hard {
+      background: #e3e3e3 !important;
+      border: 2px solid #bbb !important;
+    }
+
+    /* Botón de pantalla completa */
+    #fullscreenBtn {
+      background: #444;
+    }
+
+    /* Ocultar panel de thumbnails en pantallas pequeñas */
+    @media(max-width: 800px) {
+      #thumbnails-panel {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div id="index-header" class="container center-menu">
+
+      <div id="logo" class="index-logo pull-left no-visible">
+        <!-- <h1><a href="#main">Papapykuaa</a></h1> -->
+        <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" title=""></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#intro">Inicio</a></li>
+          <li><a href="#about">Acerca de</a></li>
+          <li><a href="#schedule">Programa</a></li>
+          <li><a href="#venue">Lugar</a></li>
+          <li><a href="#buy-tickets">Ediciones Anteriores</a></li>
+          <li><a href="#supporters">Apoyan</a></li>
+          <!-- <li><a href="#contact">Contactos</a></li> -->
+          <li class="buy-tickets"><a href="#">Inscripciones</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+    <div class="intro-container wow fadeIn">
+      <a href="https://youtu.be/p1BA2BAEnlY" class="venobox play-logo mb-4" data-vbtype="video" data-autoplay="true">
+        <img src="img/logo_intro.png" alt="" title="">
+      </a>
+      <h1 class="mb-4 pb-0">
+        Papapykuaa <br>
+        <span>Congreso Nacional de Educación Matemática</span>
+      </h1>
+      <p class="mb-4 pb-0">
+        <span><i class="fa fa-calendar-o id-color"></i> 15 al 17 de Octubre de 2026</span><br>
+        <span><i class="fa fa-map-marker id-color"></i> Universidad Nacional de Itapúa, Paraguay</span><br>
+      </p>
+      <!--<a href="#about" class="about-btn scrollto">Acerca del Evento</a>
+      
+      <section id="sponsors2">
+        <div class="sponsors2-container">
+          <img src="img/supporters/logo_conacyt4.png" alt="Logo CONACYT">
+        </div>
+        <span>Este Congreso fue cofinanciado por el Consejo Nacional de Ciencia y Tecnología (CONACYT) con el apoyo del FEEI</span>
+      </section>-->
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!--==========================
+      About Section
+    ============================-->
+    <section id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5">
+            <h2>Acerca del Congreso</h2>
+            <p>El Congreso Nacional de Educación Matemática “Papapykuaa” es un evento académico y 
+              científico que se propone abordar los desafíos actuales en la enseñanza de las 
+              matemáticas en Paraguay. La Universidad Nacional de Itapúa, en conjunto con la 
+              Universidad Nacional de Asunción, la Universidad Nacional de Concepción, la 
+              Universidad Nacional de Pilar y la Universidad Nacional de Misiones, cuentan con una 
+              sólida trayectoria en la organización y participación en eventos académicos y científicos. 
+              Este congreso tiene como objetivos principales actualizar las metodologías 
+              de enseñanza, mejorar la formación continua de los docentes e integrar tecnologías 
+              emergentes en el proceso educativo.</p>
+          </div>
+          <div class="col-lg-4">
+            <h3>Objetivos</h3>
+            <ol>
+              <li><p>Fomentar el intercambio de conocimientos, metodologías innovadoras y experiencias prácticas que fortalezcan la enseñanza y el aprendizaje de las matemáticas en Paraguay.</p></li>
+              <li><p>Proporcionar un espacio de actualización y desarrollo profesional para docentes de matemáticas de todos los niveles educativos en Paraguay.</p></li>
+              <li><p>Explorar metodologías pedagógicas centradas en el estudiante que promuevan un aprendizaje activo y significativo de las matemáticas.</p></li>
+              <li><p>Promover el uso efectivo de recursos tecnológicos innovadores para la enseñanza de las matemáticas.</p></li>
+              <li><p>Facilitar la colaboración entre docentes e interesados en la educación matemática, fomentando el intercambio de ideas y buenas prácticas.</p></li>
+              <li><p>Analizar los desafíos actuales en la enseñanza de las matemáticas en Paraguay y proponer estrategias efectivas para superarlos.</p></li>
+              <li><p>Promover la conformación de una red nacional en educación matemática en busca de la sostenibilidad de esta iniciativa.</p></li>
+            </ol>
+          </div>
+          <div class="col-lg-3">
+            <h3>Líneas de Investigación</h3>
+            <ol>
+              <li><p>Formación inicial y continua del profesorado de matemáticas.</p></li>
+              <li><p>Diseño curricular y evaluación de capacidades en el área de matemáticas.</p></li>
+              <li><p>Teorías de enseñanza y aprendizaje y buenas prácticas en educación matemática.</p></li>
+              <li><p>Tecnologías de información y comunicación en la enseñanza de las matemáticas.</p></li>
+              <li><p>Metodologías innovadoras en la enseñanza de disciplinas matemáticas específicas (geometría, sistemas numéricos, etc.).</p></li>
+              <li><p>Resolución de problemas en la enseñanza y aprendizaje de las matemáticas.</p></li>
+              <li><p>Educación a distancia y sus desafíos para el desarrollo de competencias matemáticas.</p></li>
+              <li><p>Aportes de la matemática en el desarrollo de competencias de otras ciencias (ciencias naturales, ciencias sociales, etc.)</p></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="gallery2" class="wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+          <h2>Fotos de Ediciones anteriores</h2>
+          <!-- <p></p> -->
+        </div>
+      </div>
+
+      <div class="owl-carousel gallery-carousel">
+        <a href="img/evento/1.jpg" class="venobox" data-gall="gallery-carousel" data-maxwidth="50%" data-maxheight="50%"><img src="img/evento/1.jpg" alt=""></a>
+        <a href="img/evento/3.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/3.jpg" alt=""></a>
+        <a href="img/evento/4.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/4.jpg" alt=""></a>
+        <a href="img/evento/5.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/5.jpg" alt=""></a>
+        <a href="img/evento/6.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/6.jpg" alt=""></a>
+        <a href="img/evento/7.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/7.jpg" alt=""></a>
+        <a href="img/evento/8.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/8.jpg" alt=""></a>
+        <a href="img/evento/9.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/9.jpg" alt=""></a>
+        <a href="img/evento/10.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/10.jpg" alt=""></a>
+        <a href="img/evento/12.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/12.jpg" alt=""></a>
+        <a href="img/evento/13.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/13.jpg" alt=""></a>
+        <a href="img/evento/14.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/14.jpg" alt=""></a>
+        <a href="img/evento/15.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/15.jpg" alt=""></a>
+        <a href="img/evento/16.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/16.jpg" alt=""></a>
+        <a href="img/evento/17.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/17.jpg" alt=""></a>
+        <a href="img/evento/18.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/18.jpg" alt=""></a>
+        <a href="img/evento/19.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/19.jpg" alt=""></a>
+        <a href="img/evento/20.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/20.jpg" alt=""></a>
+        <a href="img/evento/22.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/22.jpg" alt=""></a>
+        <a href="img/evento/23.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/23.jpg" alt=""></a>
+        <a href="img/evento/25.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/25.jpg" alt=""></a>
+        <a href="img/evento/27.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/27.jpg" alt=""></a>
+        <a href="img/evento/28.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/28.jpg" alt=""></a>
+        <a href="img/evento/30.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/evento/30.jpg" alt=""></a>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Schedule Section
+    ============================-->
+    <section id="schedule" class="section-with-bg">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h2>Programa del Evento</h2>
+          <p>Las actividades del congreso se realizarán en su totalidad en el 
+            Campus Universitario de la Universidad Nacional de Itapuá, con 
+            sede en la ciudad de Encarnación.</p>
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#day-1" role="tab" data-toggle="tab">15 de Octubre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#day-2" role="tab" data-toggle="tab">16 de Octubre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#day-3" role="tab" data-toggle="tab">17 de Octubre</a>
+          </li>
+        </ul>
+
+        <div class="tab-content row justify-content-center">
+
+          <!-- Schdule Day 1 -->
+          <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="day-1">
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>15:00 pm</time> a <time>17:00 pm</time></div>
+              <div class="col-md-10">
+                <h4>Acreditaciones</h4>
+                <p>Hall de acceso a POSGRADO - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>17:00 pm</time> a <time>19:00 pm</time></div>
+              <div class="col-md-10">
+                <h4>Presentación de Póster</h4>
+                <p>Salas de clase de POSGRADO y Facultad de Humanidades</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>19:00 pm</time></div>
+              <div class="col-md-10">
+                <h4>Inauguración Oficial del Congreso</h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>20:20 pm</time></div>
+              <div class="col-md-10">
+                <h4>Conferencia Magistral<span></span></h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>20:40 pm</time></div>
+              <div class="col-md-10">
+                <h4>Conferencia Magistral<span></span></h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>21:00 pm</time> a <time>21:30 pm</time></div>
+              <div class="col-md-10">
+                <h4>Recibimiento Artístico</h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+          </div>
+          <!-- End Schdule Day 1 -->
+
+          <!-- Schdule Day 2 -->
+          <div role="tabpanel" class="col-lg-9 tab-pane fade" id="day-2">
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>08:30 am</time> a <time>11:30 am</time></div>
+              <div class="col-md-10">
+                <h4>Acreditaciones</h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>08:00 am</time></div> 
+              <div class="col-md-10">
+                <h4>Plenaria. <span></span></h4> 
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>10:00 am</time> a <time>12:00 pm</time></div>
+              <div class="col-md-10">
+                <h4>Talleres, Charlas y Ponencias</h4>
+                <p>Salas de clases de POSGRADO y Facultad de Humanidades</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-12">
+                <h4>RECESO</h4> 
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>14:00 pm</time></div> 
+              <div class="col-md-10">
+                <h4>Talleres y Charlas <span></span> <span class="flag-icon flag-icon-py"></span></h4> 
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>14:00 pm</time></div> 
+              <div class="col-md-10">
+                <h4>Ponencias<span></span> <span class="flag-icon flag-icon-py"></span></h4> 
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>16:00 pm</time></div>
+              <div class="col-md-10">
+                <h4><span>Presentación de Pósteres Científicos</span><span class="flag-icon flag-icon-ar"></span></h4>
+                <p>Salas de clases POSGRADO y Facultad de Humanidades</p>
+              </div>
+            </div>
+          
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>16:00 pm</time></div> 
+              <div class="col-md-10">
+                <h4>Asamblea plenaria de la Red Paraguaya de Educación Matemática (RePEM)<span></span> <span class="flag-icon flag-icon-py"></span></h4> 
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Schdule Day 2 -->
+
+          <!-- Schdule Day 3 -->
+          <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-3">
+
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>08:00</time> a <time>10:00</time></div>
+              <div class="col-md-10">
+                <h4>Plenaria: “Como avanzamos hacia mejora de resultados en matemáticas”</h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+            
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>10:00</time> a <time>11:00</time></div>
+              <div class="col-md-10">
+                <h4>Mesa Redonda: Evaluación del Congreso. Próximas ediciones</h4>
+                <p>Aula Magna de POSGRADO</p>
+              </div>
+            </div>
+            
+            <div class="row schedule-item">
+              <div class="col-md-2"><time>11:00</time> a <time>12:00</time></div>
+              <div class="col-md-10">
+                <h4>Cierre. Entrega de Reconocimientos</h4>
+                <p>Salón Auditorio - UNI</p>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Schdule Day 2 -->
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!--==========================
+      Venue Section
+    ============================-->
+    <section id="venue" class="wow fadeInUp">
+
+      <div class="container-fluid">
+
+        <div class="section-header">
+          <h2>Lugar del Congreso</h2>
+          <p>Información e imágenes sobre el lugar del evento</p>
+          <p>Las actividades del congreso se realizarán en su totalidad en el 
+            Campus Universitario de la Universidad Nacional de Itapuá, con 
+            sede en la ciudad de Encarnación.</p>
+        </div>
+
+        <div class="row no-gutters">
+          <div class="col-lg-6 venue-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5160.454289321705!2d-55.88266318193159!3d-27.309666867270032!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945794fe2795610f%3A0xf31765db5e25c553!2sUniversidad%20Nacional%20de%20Itap%C3%BAa!5e0!3m2!1ses-419!2spy!4v1781472317367!5m2!1ses-419!2spy" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+
+          <div class="col-lg-6 venue-info">
+            <div class="row justify-content-center">
+              <div class="col-11 col-lg-8">
+                <h3>La Universidad Nacional de Itapúa</h3>
+                <p>
+                  Anfitriona del evento en su Segunda Edición,
+                  institución de gestión pública creada por Ley 1009/93, con vasta experiencia en el desarrollo de
+                  congresos y eventos académicos de alcance nacional e internacional
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-fluid venue-gallery-container">
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/1.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/1.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/2.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/2.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/3.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/3.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/4.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/4.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/5.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/5.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/6.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/6.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/7.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/7.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/8.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/8.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Gallery Section
+    ============================-->
+    <section id="gallery" class="wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+          <h2>Ciudad de Encarnación</h2>
+          <!-- <p></p> -->
+        </div>
+      </div>
+
+      <div class="owl-carousel gallery-carousel">
+        <a href="img/encar/1.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/1.jpg" alt=""></a>
+        <a href="img/encar/2.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/2.jpg" alt=""></a>
+        <a href="img/encar/3.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/3.jpg" alt=""></a>
+        <a href="img/encar/4.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/4.jpg" alt=""></a>
+        <a href="img/encar/5.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/5.jpg" alt=""></a>
+        <a href="img/encar/6.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/6.jpg" alt=""></a>
+        <a href="img/encar/7.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/7.jpg" alt=""></a>
+        <a href="img/encar/8.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/encar/8.jpg" alt=""></a>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Sponsors Section
+    ============================-->
+    <section id="supporters" class="section-with-bg wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+          <h2>Organizan y Apoyan</h2>
+        </div>
+
+        <div class="row no-gutters supporters-wrap clearfix">
+
+          <div class="col-lg-4 col-md-6 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_uni.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_una.png" class="img-fluid" alt="">
+            </div>
+          </div>
+        
+          <div class="col-lg-4 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_unc.png" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_une.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_unp.png" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_unamis.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <!--<div class="col-12">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_conacyt3.png" class="img-fluid" alt="">
+            </div>
+          </div>-->
+
+          <div class="col-lg-6 col-md-6 col-xs-6">
+            <div class="supporter-logo">
+              <a href="doc/resmec.pdf" target="_blank" rel="noopener noreferrer">
+                <img src="img/supporters/logo_mec.png" class="img-fluid" alt="">
+              </a>
+            </div>
+          </div>
+          
+          <div class="col-lg-6 col-md-6 col-xs-6">
+            <div class="supporter-logo">
+              <a href="doc/resconacyt.pdf" target="_blank" rel="noopener noreferrer">
+                <img src="img/supporters/logo_conacyt.png" class="img-fluid" alt="">
+              </a>
+            </div>
+          </div>
+          
+          <div class="col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_smp.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_aupp.png" class="img-fluid" alt="">
+            </div>
+          </div>
+        
+          <!--<div class="col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_pyahu.png" class="img-fluid" alt="">
+            </div>
+          </div>-->
+        
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_omapa.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_piensa.png" class="img-fluid" alt="">
+            </div>
+          </div>
+         <!-- 
+          <div class="col-lg-6 col-md-6 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_gobernacion.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-6 col-md-6 col-xs-6">
+            <div class="supporter-logo">
+              <img src="img/supporters/logo_municipalidad.png" class="img-fluid" alt="">
+            </div>
+          </div>-->
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section id="buy-tickets" class="section-with-bg wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>Libro de Resúmenes</h2>
+          <p>
+            Aquí encontrarás el libro de resúmenes con los trabajos presentados en el evento.
+            Haz clic en la imagen para acceder al proceeding en PDF y leer todos los detalles.
+          </p>
+        </div>
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-4 col-md-6">
+            <a href="https://drive.google.com/file/d/1dqO1hIAlsTjp9zcEW7AVzh5MQIu5licj/view?usp=sharing" target="_blank">
+              <img src="img/papapykuaa2.png" alt="Portada del libro de resúmenes" class="img-fluid">
+            </a>
+          </div>
+        </div>
+  </div>
+    </section>
+
+
+  </main>
+
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-6 footer-info">
+            <img src="img/logo.png" alt="Papapykuaa">
+            <p>El Congreso Nacional de Educación Matemática “Papapykuaa” es un evento académico y 
+              científico que se propone abordar los desafíos actuales en la enseñanza de las 
+              matemáticas en Paraguay. La Universidad Nacional de Itapúa, en conjunto con la 
+              Universidad Nacional de Asunción, la Universidad Nacional de Concepción, la 
+              Universidad Nacional de Pilar y la Universidad Nacional de Misiones, cuentan con una 
+              sólida trayectoria en la organización y participación en eventos académicos y científicos. 
+              Este congreso tiene como objetivos principales actualizar las metodologías 
+              de enseñanza, mejorar la formación continua de los docentes e integrar tecnologías 
+              emergentes en el proceso educativo..</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Links</h4>
+            <ul>
+              <li><i class="fa fa-angle-right"></i> <a href="#intro">Inicio</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#about">Acerca de</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#schedule">Programa</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#supporters">Apoyan</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Inscripciones</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contactos</h4>
+            <p>
+              Abg Lorenzo Zacarías 255, <br>
+              Barrio Ka'aguy rory, Encarnación 070101, <br>
+              Paraguay <br>
+              <strong>Teléfono:</strong> (+595)71 206990 <br>
+              <!--<strong>Email:</strong> papapykuaa@facet-unc.edu.py<br>-->
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>T&D - Tecnología y Desarrollo</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+        -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/venobox/venobox.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.html"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+</body>
+</html>
