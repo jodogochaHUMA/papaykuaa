@@ -1,0 +1,11 @@
+# Proteger archivos de configuración sensibles
+<Files "db_config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Proteger también el script de creación de tabla por si acaso
+<Files "crear_tabla.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
