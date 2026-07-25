@@ -6,8 +6,8 @@
 
 // -- Base de datos --
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'preinscripcion');
-define('DB_USER', 'jodogocha');
+define('DB_NAME', 'u290072930_preinscripcion');
+define('DB_USER', 'u290072930_jodogocha');
 define('DB_PASS', 'Jdgch.1986');
 define('DB_CHARSET', 'utf8mb4');
 
