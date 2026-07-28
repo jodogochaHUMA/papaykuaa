@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Nombre Apellido | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="conferencista, matemática, educación, Paraguay, Papapykuaa" name="keywords">
+  <meta content="Perfil académico de Nombre Apellido, conferencista invitado del Congreso Papapykuaa." name="description">
+
+  <!-- Favicons -->
+  <link href="../img/favicon.png" rel="icon">
+  <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS -->
+  <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../lib/animate/animate.min.css" rel="stylesheet">
+  <link href="../lib/venobox/venobox.css" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link href="../css/style.css" rel="stylesheet">
+
+  <style>
+    /* ---- Encabezado de página interna ---- */
+    #page-header {
+      background: linear-gradient(rgba(6, 12, 34, 0.75), rgba(6, 12, 34, 0.75)),
+                  url('../img/intro-bg.jpg') center center no-repeat;
+      background-size: cover;
+      padding: 80px 0 40px;
+      text-align: center;
+      color: #fff;
+    }
+    #page-header h1 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    #page-header p  { font-size: 1.05rem; color: #ccc; margin: 0; }
+
+    /* ---- Breadcrumb ---- */
+    .breadcrumb-nav { background: #eee; padding: 10px 0; font-size: 0.9rem; }
+    .breadcrumb-nav a { color: #f82249; }
+    .breadcrumb-nav .separator { margin: 0 8px; color: #999; }
+
+    /* ---- Layout ---- */
+    #perfil-main { padding: 50px 0; background: #f9f9f9; }
+
+    /* ---- Foto y datos básicos ---- */
+    .perfil-foto-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      padding: 30px 25px;
+      text-align: center;
+      position: sticky;
+      top: 80px;
+      margin-bottom: 30px;
+    }
+    .perfil-foto-card img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 50%;
+      border: 4px solid #f82249;
+      margin-bottom: 18px;
+    }
+    .perfil-foto-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #191919;
+      margin-bottom: 4px;
+    }
+    .perfil-foto-card .institucion {
+      font-size: 0.88rem;
+      color: #888;
+      margin-bottom: 14px;
+    }
+    .perfil-foto-card .pais-badge {
+      display: inline-block;
+      background: #f82249;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .perfil-redes a {
+      display: inline-block;
+      width: 34px; height: 34px;
+      line-height: 34px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      color: #555;
+      font-size: 0.95rem;
+      margin: 0 3px;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+    .perfil-redes a:hover { background: #f82249; color: #fff; }
+
+    /* ---- Contenido del curriculum ---- */
+    .perfil-content {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      padding: 35px 35px;
+      margin-bottom: 30px;
+    }
+    .perfil-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #191919;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #f82249;
+      margin-bottom: 20px;
+    }
+    .perfil-content h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f82249;
+      margin-top: 25px;
+      margin-bottom: 8px;
+    }
+    .perfil-content p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .perfil-content ul {
+      color: #555;
+      line-height: 1.8;
+      padding-left: 20px;
+    }
+    .perfil-content ul li { margin-bottom: 6px; }
+
+    /* ---- Conferencia destacada ---- */
+    .conferencia-badge {
+      background: linear-gradient(135deg, #060c22, #1a2a5e);
+      border-radius: 8px;
+      padding: 22px 25px;
+      color: #fff;
+      margin-top: 25px;
+    }
+    .conferencia-badge h5 {
+      font-size: 0.85rem;
+      color: #f82249;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .conferencia-badge p {
+      color: #ddd;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ---- Botón volver ---- */
+    .btn-volver {
+      display: inline-block;
+      background: #555;
+      color: #fff;
+      padding: 10px 25px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s;
+      margin-bottom: 25px;
+    }
+    .btn-volver:hover { background: #333; color: #fff; text-decoration: none; }
+    .btn-volver i { margin-right: 7px; }
+
+    /* ---- Sidebar Auspiciantes ---- */
+    .sidebar-auspiciantes {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      padding: 25px 20px;
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-auspiciantes h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #191919;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #f82249;
+      text-align: center;
+    }
+    .sidebar-auspiciantes .supporter-logo {
+      text-align: center;
+      padding: 9px 5px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .sidebar-auspiciantes .supporter-logo:last-child { border-bottom: none; }
+    .sidebar-auspiciantes .supporter-logo img {
+      max-height: 55px;
+      max-width: 100%;
+      object-fit: contain;
+      filter: grayscale(30%);
+      transition: filter 0.3s;
+    }
+    .sidebar-auspiciantes .supporter-logo img:hover { filter: grayscale(0%); }
+  </style>
+</head>
+
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div id="index-header" class="container center-menu">
+      <div id="logo" class="index-logo pull-left no-visible">
+        <a href="../index.html"><img src="../img/logo.png" alt="Papapykuaa" title="Papapykuaa"></a>
+      </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="../index.html#intro">Inicio</a></li>
+          <li><a href="../index.html#about">Acerca de</a></li>
+          <li class="menu-active"><a href="../index.html#conferencistas">Conferencistas</a></li>
+          <li><a href="../index.html#schedule">Programa</a></li>
+          <li><a href="../index.html#venue">Lugar</a></li>
+          <li><a href="../index.html#buy-tickets">Ediciones Anteriores</a></li>
+          <li><a href="../index.html#supporters">Apoyan</a></li>
+          <li class="buy-tickets"><a href="../inscripciones.html">Inscripciones</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--==========================
+    Encabezado de página
+  ============================-->
+  <div id="page-header">
+    <div class="container">
+      <h1>Nombre Apellido</h1>
+      <p>Conferencista Invitado/a &mdash; Congreso Papapykuaa 2026</p>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-nav">
+    <div class="container">
+      <a href="../index.html">Inicio</a>
+      <span class="separator">/</span>
+      <a href="../index.html#conferencistas">Conferencistas</a>
+      <span class="separator">/</span>
+      <strong>Nombre Apellido</strong>
+    </div>
+  </div>
+
+  <!--==========================
+    Contenido principal
+  ============================-->
+  <section id="perfil-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- ===== Columna izquierda: foto + datos básicos ===== -->
+        <div class="col-lg-3 col-md-4">
+          <div class="perfil-foto-card wow fadeInLeft">
+            <img src="../img/conferencistas/nombre-apellido.jpg" alt="Nombre Apellido">
+            <h3>Nombre Apellido</h3>
+            <p class="institucion">Universidad / Institución<br>País</p>
+            <span class="pais-badge"><i class="fa fa-map-marker"></i> País</span>
+
+            <!-- Redes sociales opcionales -->
+            <div class="perfil-redes">
+              <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+              <a href="#" title="ResearchGate"><i class="fa fa-flask"></i></a>
+              <a href="#" title="Correo"><i class="fa fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Columna central: curriculum ===== -->
+        <div class="col-lg-6 col-md-8">
+          <a href="../index.html#conferencistas" class="btn-volver wow fadeInUp">
+            <i class="fa fa-arrow-left"></i> Volver a Conferencistas
+          </a>
+
+          <div class="perfil-content wow fadeInUp">
+            <h2><i class="fa fa-user-circle-o" style="color:#f82249;margin-right:10px;"></i>Perfil Académico</h2>
+
+            <!-- Biografía / Resumen -->
+            <p>
+              Breve descripción del conferencista. Podés escribir aquí un párrafo introductorio
+              sobre su trayectoria académica y profesional.
+            </p>
+
+            <!-- Formación académica -->
+            <h4><i class="fa fa-graduation-cap"></i> Formación Académica</h4>
+            <ul>
+              <li><strong>Doctor/a en [Área]</strong> – Universidad, País (Año)</li>
+              <li><strong>Magíster en [Área]</strong> – Universidad, País (Año)</li>
+              <li><strong>Licenciado/a en [Área]</strong> – Universidad, País (Año)</li>
+            </ul>
+
+            <!-- Trayectoria profesional -->
+            <h4><i class="fa fa-briefcase"></i> Trayectoria Profesional</h4>
+            <ul>
+              <li>Cargo actual – Institución (Desde Año)</li>
+              <li>Cargo anterior – Institución (Año – Año)</li>
+            </ul>
+
+            <!-- Líneas de investigación -->
+            <h4><i class="fa fa-search"></i> Líneas de Investigación</h4>
+            <ul>
+              <li>Línea de investigación 1</li>
+              <li>Línea de investigación 2</li>
+              <li>Línea de investigación 3</li>
+            </ul>
+
+            <!-- Publicaciones destacadas -->
+            <h4><i class="fa fa-book"></i> Publicaciones Destacadas</h4>
+            <ul>
+              <li>Autor/a (Año). <em>Título del artículo</em>. Revista, Vol(N), pp.</li>
+              <li>Autor/a (Año). <em>Título del libro</em>. Editorial.</li>
+            </ul>
+
+            <!-- Conferencia en el evento -->
+            <div class="conferencia-badge">
+              <h5><i class="fa fa-microphone"></i> Conferencia en Papapykuaa 2026</h5>
+              <p><strong>Título de la conferencia o taller a cargo</strong><br>
+              Descripción breve de la temática que abordará en el congreso.</p>
+            </div>
+
+          </div>
+        </div>
+        <!-- Fin columna curriculum -->
+
+        <!-- ===== Sidebar: Auspiciantes ===== -->
+        <div class="col-lg-3">
+          <div class="sidebar-auspiciantes wow fadeInRight">
+            <h4><i class="fa fa-handshake-o" style="margin-right:6px;"></i>Organizan y Apoyan</h4>
+            <div class="supporter-logo"><img src="../img/supporters/logo_uni.png" class="img-fluid" alt="UNI"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_una.png" class="img-fluid" alt="UNA"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unc.png" class="img-fluid" alt="UNC"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_une.png" class="img-fluid" alt="UNE"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unp.png" class="img-fluid" alt="UNP"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="UNaMis"></div>
+            <div class="supporter-logo">
+              <a href="../doc/resmec.pdf" target="_blank" rel="noopener noreferrer">
+                <img src="../img/supporters/logo_mec.png" class="img-fluid" alt="MEC">
+              </a>
+            </div>
+            <div class="supporter-logo">
+              <a href="../doc/resconacyt.pdf" target="_blank" rel="noopener noreferrer">
+                <img src="../img/supporters/logo_conacyt.png" class="img-fluid" alt="CONACYT">
+              </a>
+            </div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_smp.png" class="img-fluid" alt="SMP"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_aupp.png" class="img-fluid" alt="AUPP"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_omapa.png" class="img-fluid" alt="OMAPA"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 footer-info">
+            <img src="../img/logo.png" alt="Papapykuaa">
+            <p>El Congreso Nacional de Educación Matemática "Papapykuaa" es un evento académico y
+              científico que se propone abordar los desafíos actuales en la enseñanza de las
+              matemáticas en Paraguay.</p>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Links</h4>
+            <ul>
+              <li><i class="fa fa-angle-right"></i> <a href="../index.html#intro">Inicio</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="../index.html#about">Acerca de</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="../index.html#conferencistas">Conferencistas</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="../index.html#schedule">Programa</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="../index.html#supporters">Apoyan</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="../inscripciones.html">Inscripciones</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contactos</h4>
+            <p>Abg Lorenzo Zacarías 255,<br>Barrio Ka'aguy rory, Encarnación 070101,<br>Paraguay<br>
+              <strong>Teléfono:</strong> (+595)71 206990</p>
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="copyright">&copy; Copyright <strong>T&amp;D - Tecnología y Desarrollo</strong>. All Rights Reserved</div>
+      <div class="credits">Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a></div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="../lib/jquery/jquery.min.js"></script>
+  <script src="../lib/jquery/jquery-migrate.min.js"></script>
+  <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../lib/easing/easing.min.js"></script>
+  <script src="../lib/superfish/hoverIntent.js"></script>
+  <script src="../lib/superfish/superfish.min.js"></script>
+  <script src="../lib/wow/wow.min.js"></script>
+  <script src="../lib/venobox/venobox.min.js"></script>
+  <script src="../js/main.js"></script>
+
+</body>
+</html>

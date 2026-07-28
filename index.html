@@ -162,6 +162,83 @@
         display: none;
       }
     }
+
+    /* ---- Sección Conferencistas ---- */
+    #conferencistas { padding: 60px 0; background: #fff; }
+
+    .conferencista-card {
+      display: block;
+      text-decoration: none;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 18px rgba(0,0,0,0.10);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #fff;
+    }
+    .conferencista-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 28px rgba(248,34,73,0.18);
+      text-decoration: none;
+    }
+
+    /* Foto con overlay */
+    .card-foto-wrapper {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;   /* cuadrada */
+    }
+    .card-foto-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .conferencista-card:hover .card-foto-wrapper img {
+      transform: scale(1.06);
+    }
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 12, 34, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .conferencista-card:hover .card-overlay {
+      opacity: 1;
+    }
+    .card-overlay span {
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 2px solid #f82249;
+      padding: 8px 18px;
+      border-radius: 4px;
+      background: rgba(248,34,73,0.15);
+    }
+    .card-overlay span i { margin-right: 6px; }
+
+    /* Nombre y cargo */
+    .card-nombre {
+      padding: 16px 15px 18px;
+      text-align: center;
+      border-top: 3px solid #f82249;
+    }
+    .card-nombre h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #191919;
+      margin: 0 0 4px;
+    }
+    .card-nombre p {
+      font-size: 0.82rem;
+      color: #888;
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -270,8 +347,89 @@
     </section>
 
     <!--==========================
-      Disertantes Section
+      Conferencistas Section
     ============================-->
+    <section id="conferencistas" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>Conferencistas Invitados</h2>
+          <p>Conocé a los destacados académicos e investigadores que compartirán su conocimiento en el congreso.</p>
+        </div>
+
+        <div class="row justify-content-center">
+
+          <!-- ===== CARD: Conferencista 1 ===== -->
+          <!-- Para agregar más conferencistas, duplicá este bloque col-lg-3 -->
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <a href="#" class="conferencista-card">
+              <div class="card-foto-wrapper">
+                <img src="img/avatarH.jpg" alt="Nombre Apellido">
+                <div class="card-overlay">
+                  <span><i class="fa fa-user"></i> Ver perfil</span>
+                </div>
+              </div>
+              <div class="card-nombre">
+                <h5>Angel Ruiz</h5>
+                <p>Costa Rica</p>
+              </div>
+            </a>
+          </div>
+          <!-- ===== FIN CARD ===== -->
+
+          <!-- ===== CARD: Conferencista 2 ===== -->
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <a href="#" class="conferencista-card">
+              <div class="card-foto-wrapper">
+                <img src="img/avatarM.jpg" alt="Nombre Apellido">
+                <div class="card-overlay">
+                  <span><i class="fa fa-user"></i> Ver perfil</span>
+                </div>
+              </div>
+              <div class="card-nombre">
+                <h5>Maggy Peggi</h5>
+                <p>MEC - Paraguay</p>
+              </div>
+            </a>
+          </div>
+          <!-- ===== FIN CARD ===== -->
+
+          <!-- ===== CARD: Conferencista 3 ===== -->
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <a href="#" class="conferencista-card">
+              <div class="card-foto-wrapper">
+                <img src="img/avatarM.jpg" alt="Nombre Apellido">
+                <div class="card-overlay">
+                  <span><i class="fa fa-user"></i> Ver perfil</span>
+                </div>
+              </div>
+              <div class="card-nombre">
+                <h5>Mabel Rodriguez</h5>
+                <p>Argentina</p>
+              </div>
+            </a>
+          </div>
+          <!-- ===== FIN CARD ===== -->
+
+          <!-- ===== CARD: Conferencista 4 ===== -->
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <a href="#" class="conferencista-card">
+              <div class="card-foto-wrapper">
+                <img src="img/avatarH.jpg" alt="Nombre Apellido">
+                <div class="card-overlay">
+                  <span><i class="fa fa-user"></i> Ver perfil</span>
+                </div>
+              </div>
+              <div class="card-nombre">
+                <h5>Conferencista</h5>
+                <p>España</p>
+              </div>
+            </a>
+          </div>
+          <!-- ===== FIN CARD ===== -->
+
+        </div>
+      </div>
+    </section>
 
     <!--==========================
       Schedule Section
