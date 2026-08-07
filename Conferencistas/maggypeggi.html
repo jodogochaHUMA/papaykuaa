@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Nombre Apellido | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <title>Marien Peggy Mart&#237;nez Stark | Congreso Nacional de Educaci&#243;n Matem&#225;tica - Papapykuaa</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="conferencista, matemática, educación, Paraguay, Papapykuaa" name="keywords">
-  <meta content="Perfil académico de Nombre Apellido, conferencista invitado del Congreso Papapykuaa." name="description">
+  <meta content="Marien Peggy Martinez Stark, Viceministra, MEC, conferencista, educaci&#243;n, Paraguay, Papapykuaa" name="keywords">
+  <meta content="Perfil de Marien Peggy Mart&#237;nez Stark, Viceministra de Educaci&#243;n B&#225;sica del MEC Paraguay y conferencista invitada del Congreso Papapykuaa." name="description">
 
   <!-- Favicons -->
   <link href="../img/favicon.png" rel="icon">
@@ -69,15 +69,16 @@
       margin-bottom: 18px;
     }
     .perfil-foto-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #191919;
       margin-bottom: 4px;
     }
     .perfil-foto-card .institucion {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: #888;
       margin-bottom: 14px;
+      line-height: 1.6;
     }
     .perfil-foto-card .pais-badge {
       display: inline-block;
@@ -88,6 +89,17 @@
       padding: 4px 12px;
       border-radius: 20px;
       margin-bottom: 16px;
+    }
+    .cargo-actual {
+      display: inline-block;
+      background: #060c22;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      line-height: 1.4;
     }
     .perfil-redes a {
       display: inline-block;
@@ -102,6 +114,36 @@
       text-decoration: none;
     }
     .perfil-redes a:hover { background: #f82249; color: #fff; }
+
+    /* ---- Stat badges ---- */
+    .stat-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 6px;
+    }
+    .stat-badge {
+      background: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 8px 10px;
+      text-align: center;
+      min-width: 68px;
+    }
+    .stat-badge .num {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #f82249;
+      line-height: 1.2;
+    }
+    .stat-badge .lbl {
+      display: block;
+      font-size: 0.68rem;
+      color: #888;
+      line-height: 1.3;
+    }
 
     /* ---- Contenido del curriculum ---- */
     .perfil-content {
@@ -123,9 +165,10 @@
       font-size: 1rem;
       font-weight: 700;
       color: #f82249;
-      margin-top: 25px;
-      margin-bottom: 8px;
+      margin-top: 28px;
+      margin-bottom: 10px;
     }
+    .perfil-content h4 i { margin-right: 8px; }
     .perfil-content p {
       color: #555;
       line-height: 1.8;
@@ -136,15 +179,45 @@
       line-height: 1.8;
       padding-left: 20px;
     }
-    .perfil-content ul li { margin-bottom: 6px; }
+    .perfil-content ul li { margin-bottom: 8px; }
 
-    /* ---- Conferencia destacada ---- */
+    /* ---- Logro destacado ---- */
+    .logro-destacado {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      color: #555;
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+    .logro-destacado i { color: #ffc107; margin-right: 8px; }
+
+    /* ---- Organismos ---- */
+    .organismos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .org-tag {
+      background: #f0f4ff;
+      border: 1px solid #d0d8f0;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    /* ---- Conferencia en el evento ---- */
     .conferencia-badge {
       background: linear-gradient(135deg, #060c22, #1a2a5e);
       border-radius: 8px;
       padding: 22px 25px;
       color: #fff;
-      margin-top: 25px;
+      margin-top: 28px;
     }
     .conferencia-badge h5 {
       font-size: 0.85rem;
@@ -242,8 +315,8 @@
   ============================-->
   <div id="page-header">
     <div class="container">
-      <h1>Nombre Apellido</h1>
-      <p>Conferencista Invitado/a &mdash; Congreso Papapykuaa 2026</p>
+      <h1>Marien Peggy Mart&#237;nez Stark</h1>
+      <p>Conferencista Invitada &mdash; Congreso Papapykuaa 2026</p>
     </div>
   </div>
 
@@ -254,7 +327,7 @@
       <span class="separator">/</span>
       <a href="../index.html#conferencistas">Conferencistas</a>
       <span class="separator">/</span>
-      <strong>Nombre Apellido</strong>
+      <strong>Marien Peggy Mart&#237;nez Stark</strong>
     </div>
   </div>
 
@@ -268,16 +341,28 @@
         <!-- ===== Columna izquierda: foto + datos básicos ===== -->
         <div class="col-lg-3 col-md-4">
           <div class="perfil-foto-card wow fadeInLeft">
-            <img src="../img/conferencistas/nombre-apellido.jpg" alt="Nombre Apellido">
-            <h3>Nombre Apellido</h3>
-            <p class="institucion">Universidad / Institución<br>País</p>
-            <span class="pais-badge"><i class="fa fa-map-marker"></i> País</span>
+            <img src="../img/conferencistas/maggypeggi.jpg" alt="Marien Peggy Mart&#237;nez Stark">
+            <h3>Marien Peggy Mart&#237;nez Stark</h3>
+            <p class="institucion">
+              Ministerio de Educaci&#243;n y Ciencias<br>
+              Paraguay
+            </p>
+            <span class="cargo-actual">
+              <i class="fa fa-star" style="color:#f82249;margin-right:5px;"></i>
+              Viceministra de Educaci&#243;n B&#225;sica
+            </span><br>
+            <span class="pais-badge"><i class="fa fa-map-marker"></i> Paraguay</span>
 
-            <!-- Redes sociales opcionales -->
-            <div class="perfil-redes">
-              <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-              <a href="#" title="ResearchGate"><i class="fa fa-flask"></i></a>
-              <a href="#" title="Correo"><i class="fa fa-envelope"></i></a>
+            <!-- Cifras destacadas -->
+            <div class="stat-badges">
+              <div class="stat-badge">
+                <span class="num">+30</span>
+                <span class="lbl">A&#241;os de experiencia</span>
+              </div>
+              <div class="stat-badge">
+                <span class="num">7+</span>
+                <span class="lbl">Organismos internacionales</span>
+              </div>
             </div>
           </div>
         </div>
@@ -289,49 +374,96 @@
           </a>
 
           <div class="perfil-content wow fadeInUp">
-            <h2><i class="fa fa-user-circle-o" style="color:#f82249;margin-right:10px;"></i>Perfil Académico</h2>
+            <h2><i class="fa fa-user-circle-o" style="color:#f82249;margin-right:10px;"></i>Perfil Profesional</h2>
 
-            <!-- Biografía / Resumen -->
+            <!-- Resumen -->
             <p>
-              Breve descripción del conferencista. Podés escribir aquí un párrafo introductorio
-              sobre su trayectoria académica y profesional.
+              <strong>Marien Peggy Mart&#237;nez Stark</strong> es una destacada profesional paraguaya
+              con m&#225;s de <strong>30 a&#241;os de experiencia</strong> en educaci&#243;n, pol&#237;ticas
+              p&#250;blicas y desarrollo curricular. Desde mayo de 2025, se desempe&#241;a como
+              <strong>Viceministra de Educaci&#243;n B&#225;sica</strong> del Ministerio de Educaci&#243;n
+              y Ciencias (MEC) de Paraguay, liderando la implementaci&#243;n de pol&#237;ticas, programas
+              e iniciativas estrat&#233;gicas orientadas al fortalecimiento de la calidad educativa del pa&#237;s.
             </p>
 
             <!-- Formación académica -->
-            <h4><i class="fa fa-graduation-cap"></i> Formación Académica</h4>
+            <h4><i class="fa fa-graduation-cap"></i> Formaci&#243;n Acad&#233;mica</h4>
             <ul>
-              <li><strong>Doctor/a en [Área]</strong> – Universidad, País (Año)</li>
-              <li><strong>Magíster en [Área]</strong> – Universidad, País (Año)</li>
-              <li><strong>Licenciado/a en [Área]</strong> – Universidad, País (Año)</li>
+              <li><strong>Mag&#237;ster en Educaci&#243;n</strong></li>
+              <li><strong>Licenciada en Psicopedagog&#237;a</strong></li>
+              <li><strong>Especializaci&#243;n en Psicopedagog&#237;a Cl&#237;nica</strong></li>
+              <li><strong>Especializaci&#243;n en Pedagog&#237;a Social</strong></li>
             </ul>
+
+            <!-- Cargo actual -->
+            <h4><i class="fa fa-briefcase"></i> Cargo Actual</h4>
+            <div class="logro-destacado">
+              <i class="fa fa-star"></i>
+              <strong>Viceministra de Educaci&#243;n B&#225;sica &mdash; MEC Paraguay</strong> (desde mayo 2025)<br>
+              Lidera la implementaci&#243;n de pol&#237;ticas, programas e iniciativas estrat&#233;gicas orientadas
+              al fortalecimiento de la calidad educativa del pa&#237;s.
+            </div>
 
             <!-- Trayectoria profesional -->
-            <h4><i class="fa fa-briefcase"></i> Trayectoria Profesional</h4>
+            <h4><i class="fa fa-history"></i> Trayectoria Profesional</h4>
+            <p>
+              A lo largo de su carrera ha ocupado <strong>cargos de liderazgo en universidades,
+              centros de formaci&#243;n y organismos multilaterales</strong>, coordinando proyectos
+              de formaci&#243;n, investigaci&#243;n y desarrollo curricular. Su trayectoria incluye:
+            </p>
             <ul>
-              <li>Cargo actual – Institución (Desde Año)</li>
-              <li>Cargo anterior – Institución (Año – Año)</li>
+              <li>Direcci&#243;n de programas de grado y posgrado universitario.</li>
+              <li>Elaboraci&#243;n de criterios de calidad educativa.</li>
+              <li>Consultor&#237;as clave para la transformaci&#243;n educativa en Paraguay.</li>
+              <li>Coordinaci&#243;n acad&#233;mica y contrataci&#243;n de profesionales especializados.</li>
+              <li>Asistencia t&#233;cnica en plataformas educativas digitales.</li>
+              <li>Elaboraci&#243;n de informes de monitoreo y evaluaci&#243;n.</li>
             </ul>
 
-            <!-- Líneas de investigación -->
-            <h4><i class="fa fa-search"></i> Líneas de Investigación</h4>
+            <!-- Organismos internacionales -->
+            <h4><i class="fa fa-globe"></i> Experiencia con Organismos Internacionales</h4>
+            <p>
+              Ha colaborado activamente con destacados organismos multilaterales y agencias de
+              cooperaci&#243;n internacional en proyectos de pol&#237;ticas de infancia, juventud y educaci&#243;n:
+            </p>
+            <div class="organismos-grid">
+              <span class="org-tag">MEC</span>
+              <span class="org-tag">BID</span>
+              <span class="org-tag">OPS</span>
+              <span class="org-tag">OEI</span>
+              <span class="org-tag">AECID</span>
+              <span class="org-tag">CAF</span>
+              <span class="org-tag">UNICEF</span>
+            </div>
+
+            <!-- Áreas de especialización -->
+            <h4><i class="fa fa-search"></i> &#193;reas de Especializaci&#243;n</h4>
             <ul>
-              <li>Línea de investigación 1</li>
-              <li>Línea de investigación 2</li>
-              <li>Línea de investigación 3</li>
+              <li>Pol&#237;ticas p&#250;blicas de infancia y juventud.</li>
+              <li>Desarrollo curricular y criterios de calidad educativa.</li>
+              <li>Psicopedagog&#237;a cl&#237;nica y pedagog&#237;a social.</li>
+              <li>Formaci&#243;n docente y desarrollo profesional continuo.</li>
+              <li>Coordinaci&#243;n de equipos y dise&#241;o de estrategias de impacto social.</li>
+              <li>Monitoreo, evaluaci&#243;n y asistencia t&#233;cnica educativa.</li>
             </ul>
 
-            <!-- Publicaciones destacadas -->
-            <h4><i class="fa fa-book"></i> Publicaciones Destacadas</h4>
-            <ul>
-              <li>Autor/a (Año). <em>Título del artículo</em>. Revista, Vol(N), pp.</li>
-              <li>Autor/a (Año). <em>Título del libro</em>. Editorial.</li>
-            </ul>
+            <!-- Participación en asociaciones -->
+            <h4><i class="fa fa-users"></i> Participaci&#243;n en Asociaciones</h4>
+            <p>
+              Es miembro activo de diversas <strong>asociaciones nacionales e internacionales</strong>
+              relacionadas con la educaci&#243;n, la psicolog&#237;a y los derechos del ni&#241;o, lo que
+              refleja su compromiso con el desarrollo integral de la ni&#241;ez y la mejora continua
+              de los procesos educativos en Paraguay y la regi&#243;n.
+            </p>
 
             <!-- Conferencia en el evento -->
             <div class="conferencia-badge">
-              <h5><i class="fa fa-microphone"></i> Conferencia en Papapykuaa 2026</h5>
-              <p><strong>Título de la conferencia o taller a cargo</strong><br>
-              Descripción breve de la temática que abordará en el congreso.</p>
+              <h5><i class="fa fa-microphone"></i> Conferencista Invitada &mdash; Papapykuaa 2026</h5>
+              <p>
+                Marien Peggy Mart&#237;nez Stark participar&#225; como conferencista invitada en el
+                <strong>Congreso Nacional de Educaci&#243;n Matem&#225;tica &#8220;Papapykuaa&#8221;</strong>,
+                15 al 17 de Octubre de 2026, Universidad Nacional de Itap&#250;a, Encarnaci&#243;n, Paraguay.
+              </p>
             </div>
 
           </div>
@@ -342,12 +474,24 @@
         <div class="col-lg-3">
           <div class="sidebar-auspiciantes wow fadeInRight">
             <h4><i class="fa fa-handshake-o" style="margin-right:6px;"></i>Organizan y Apoyan</h4>
-            <div class="supporter-logo"><img src="../img/supporters/logo_uni.png" class="img-fluid" alt="UNI"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_una.png" class="img-fluid" alt="UNA"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unc.png" class="img-fluid" alt="UNC"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_une.png" class="img-fluid" alt="UNE"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unp.png" class="img-fluid" alt="UNP"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="UNaMis"></div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_uni.png" class="img-fluid" alt="Universidad Nacional de Itap&#250;a">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_una.png" class="img-fluid" alt="Universidad Nacional de Asunci&#243;n">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_unc.png" class="img-fluid" alt="Universidad Nacional de Concepci&#243;n">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_une.png" class="img-fluid" alt="Universidad Nacional del Este">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_unp.png" class="img-fluid" alt="Universidad Nacional de Pilar">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="Universidad Nacional de Misiones">
+            </div>
             <div class="supporter-logo">
               <a href="../doc/resmec.pdf" target="_blank" rel="noopener noreferrer">
                 <img src="../img/supporters/logo_mec.png" class="img-fluid" alt="MEC">
@@ -358,9 +502,15 @@
                 <img src="../img/supporters/logo_conacyt.png" class="img-fluid" alt="CONACYT">
               </a>
             </div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_smp.png" class="img-fluid" alt="SMP"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_aupp.png" class="img-fluid" alt="AUPP"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_omapa.png" class="img-fluid" alt="OMAPA"></div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_smp.png" class="img-fluid" alt="SMP">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_aupp.png" class="img-fluid" alt="AUPP">
+            </div>
+            <div class="supporter-logo">
+              <img src="../img/supporters/logo_omapa.png" class="img-fluid" alt="OMAPA">
+            </div>
           </div>
         </div>
 
@@ -377,9 +527,11 @@
         <div class="row">
           <div class="col-lg-6 footer-info">
             <img src="../img/logo.png" alt="Papapykuaa">
-            <p>El Congreso Nacional de Educación Matemática "Papapykuaa" es un evento académico y
-              científico que se propone abordar los desafíos actuales en la enseñanza de las
-              matemáticas en Paraguay.</p>
+            <p>El Congreso Nacional de Educaci&#243;n Matem&#225;tica &#8220;Papapykuaa&#8221; es un evento acad&#233;mico y
+              cient&#237;fico que se propone abordar los desaf&#237;os actuales en la ense&#241;anza de las
+              matem&#225;ticas en Paraguay. La Universidad Nacional de Itap&#250;a, en conjunto con otras
+              universidades nacionales, cuentan con una s&#243;lida trayectoria en la organizaci&#243;n y
+              participaci&#243;n en eventos acad&#233;micos y cient&#237;ficos.</p>
           </div>
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Links</h4>
@@ -394,8 +546,12 @@
           </div>
           <div class="col-lg-3 col-md-6 footer-contact">
             <h4>Contactos</h4>
-            <p>Abg Lorenzo Zacarías 255,<br>Barrio Ka'aguy rory, Encarnación 070101,<br>Paraguay<br>
-              <strong>Teléfono:</strong> (+595)71 206990</p>
+            <p>
+              Abg Lorenzo Zac&#225;r&#237;as 255,<br>
+              Barrio Ka'aguy rory, Encarnaci&#243;n 070101,<br>
+              Paraguay<br>
+              <strong>Tel&#233;fono:</strong> (+595)71 206990
+            </p>
             <div class="social-links">
               <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
               <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -408,8 +564,12 @@
       </div>
     </div>
     <div class="container">
-      <div class="copyright">&copy; Copyright <strong>T&amp;D - Tecnología y Desarrollo</strong>. All Rights Reserved</div>
-      <div class="credits">Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a></div>
+      <div class="copyright">
+        &copy; Copyright <strong>T&amp;D - Tecnolog&#237;a y Desarrollo</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
     </div>
   </footer>
 
