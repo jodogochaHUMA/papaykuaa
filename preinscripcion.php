@@ -11,7 +11,7 @@ $csrf = $_SESSION['csrf_token'];
 
 <head>
   <meta charset="utf-8">
-  <title>Pre-inscripción Participantes | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <title>Inscripción Participantes | Congreso Nacional de Educación Matemática - Papapykuaa</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="congreso, matemática, educación, Paraguay, pre-inscripción, participantes" name="keywords">
   <meta content="Pre-inscripción para participantes del Congreso Nacional de Educación Matemática Papapykuaa." name="description">
@@ -165,7 +165,7 @@ $csrf = $_SESSION['csrf_token'];
 
   <div id="page-header">
     <div class="container">
-      <h1>Pre-inscripción de Participantes</h1>
+      <h1>Inscripción de Participantes</h1>
       <p>Congreso Nacional de Educación Matemática &mdash; Papapykuaa</p>
       <p><i class="fa fa-calendar-o"></i>&nbsp; 15 al 17 de Octubre de 2026 &nbsp;|&nbsp;
          <i class="fa fa-map-marker"></i>&nbsp; Universidad Nacional de Itapúa, Paraguay</p>
@@ -178,7 +178,7 @@ $csrf = $_SESSION['csrf_token'];
       <span class="separator">/</span>
       <a href="inscripciones.html">Inscripciones</a>
       <span class="separator">/</span>
-      <strong>Pre-inscripción de Participantes</strong>
+      <strong>Inscripción de Participantes</strong>
     </div>
   </div>
 
@@ -189,9 +189,9 @@ $csrf = $_SESSION['csrf_token'];
         <!-- Formulario -->
         <div class="col-lg-8">
           <div class="form-section wow fadeInUp">
-            <h2><i class="fa fa-user-plus" style="color:#f82249; margin-right:10px;"></i>Pre-inscripción de Participantes</h2>
+            <h2><i class="fa fa-user-plus" style="color:#f82249; margin-right:10px;"></i>Inscripción de Participantes</h2>
             <p class="form-intro">
-              Completá el siguiente formulario para registrar tu pre-inscripción como participante
+              Completá el siguiente formulario para registrar tu inscripción como participante
               en el Congreso Nacional de Educación Matemática <strong>Papapykuaa</strong>.
               Todos los campos marcados con <span style="color:#f82249;">*</span> son obligatorios.
             </p>
@@ -251,7 +251,7 @@ $csrf = $_SESSION['csrf_token'];
               <div class="form-actions" style="margin-top: 30px;">
                 <a href="inscripciones.html" class="btn-volver"><i class="fa fa-arrow-left"></i> Volver</a>
                 <button type="submit" class="btn-enviar" id="btn-submit">
-                  <i class="fa fa-paper-plane"></i> Enviar Pre-inscripción
+                  <i class="fa fa-paper-plane"></i> Enviar Inscripción
                 </button>
               </div>
 
