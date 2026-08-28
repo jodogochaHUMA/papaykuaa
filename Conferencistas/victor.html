@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Nombre Apellido | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <title>Víctor Hugo González | Congreso Nacional de Educación Matemática - Papapykuaa</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="conferencista, matemática, educación, Paraguay, Papapykuaa" name="keywords">
-  <meta content="Perfil académico de Nombre Apellido, conferencista invitado del Congreso Papapykuaa." name="description">
+  <meta content="Victor Hugo González, conferencista, matemática, educación, Argentina, UNGS, UNLu, Papapykuaa" name="keywords">
+  <meta content="Perfil académico de Víctor Hugo González, conferencista invitado del Congreso Nacional de Educación Matemática Papapykuaa." name="description">
 
   <!-- Favicons -->
   <link href="../img/favicon.png" rel="icon">
@@ -28,7 +28,6 @@
   <link href="../css/style.css" rel="stylesheet">
 
   <style>
-    /* ---- Encabezado de página interna ---- */
     #page-header {
       background: linear-gradient(rgba(6, 12, 34, 0.75), rgba(6, 12, 34, 0.75)),
                   url('../img/intro-bg.jpg') center center no-repeat;
@@ -40,15 +39,12 @@
     #page-header h1 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
     #page-header p  { font-size: 1.05rem; color: #ccc; margin: 0; }
 
-    /* ---- Breadcrumb ---- */
     .breadcrumb-nav { background: #eee; padding: 10px 0; font-size: 0.9rem; }
     .breadcrumb-nav a { color: #f82249; }
     .breadcrumb-nav .separator { margin: 0 8px; color: #999; }
 
-    /* ---- Layout ---- */
     #perfil-main { padding: 50px 0; background: #f9f9f9; }
 
-    /* ---- Foto y datos básicos ---- */
     .perfil-foto-card {
       background: #fff;
       border-radius: 8px;
@@ -69,15 +65,16 @@
       margin-bottom: 18px;
     }
     .perfil-foto-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #191919;
       margin-bottom: 4px;
     }
     .perfil-foto-card .institucion {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: #888;
       margin-bottom: 14px;
+      line-height: 1.6;
     }
     .perfil-foto-card .pais-badge {
       display: inline-block;
@@ -103,7 +100,35 @@
     }
     .perfil-redes a:hover { background: #f82249; color: #fff; }
 
-    /* ---- Contenido del curriculum ---- */
+    .stat-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 6px;
+    }
+    .stat-badge {
+      background: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 8px 10px;
+      text-align: center;
+      min-width: 68px;
+    }
+    .stat-badge .num {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #f82249;
+      line-height: 1.2;
+    }
+    .stat-badge .lbl {
+      display: block;
+      font-size: 0.68rem;
+      color: #888;
+      line-height: 1.3;
+    }
+
     .perfil-content {
       background: #fff;
       border-radius: 8px;
@@ -123,28 +148,45 @@
       font-size: 1rem;
       font-weight: 700;
       color: #f82249;
-      margin-top: 25px;
-      margin-bottom: 8px;
+      margin-top: 28px;
+      margin-bottom: 10px;
     }
-    .perfil-content p {
-      color: #555;
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-    .perfil-content ul {
-      color: #555;
-      line-height: 1.8;
-      padding-left: 20px;
-    }
-    .perfil-content ul li { margin-bottom: 6px; }
+    .perfil-content h4 i { margin-right: 8px; }
+    .perfil-content p { color: #555; line-height: 1.8; margin-bottom: 12px; }
+    .perfil-content ul { color: #555; line-height: 1.8; padding-left: 20px; }
+    .perfil-content ul li { margin-bottom: 8px; }
 
-    /* ---- Conferencia destacada ---- */
+    .logro-destacado {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      color: #555;
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+    .logro-destacado i { color: #ffc107; margin-right: 8px; }
+
+    .pub-item {
+      background: #f9f9f9;
+      border-left: 3px solid #f82249;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      color: #555;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .pub-item a { color: #f82249; word-break: break-all; }
+    .pub-item a:hover { text-decoration: underline; }
+
     .conferencia-badge {
       background: linear-gradient(135deg, #060c22, #1a2a5e);
       border-radius: 8px;
       padding: 22px 25px;
       color: #fff;
-      margin-top: 25px;
+      margin-top: 28px;
     }
     .conferencia-badge h5 {
       font-size: 0.85rem;
@@ -154,14 +196,8 @@
       letter-spacing: 1px;
       margin-bottom: 8px;
     }
-    .conferencia-badge p {
-      color: #ddd;
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
+    .conferencia-badge p { color: #ddd; margin: 0; font-size: 0.95rem; line-height: 1.6; }
 
-    /* ---- Botón volver ---- */
     .btn-volver {
       display: inline-block;
       background: #555;
@@ -177,7 +213,6 @@
     .btn-volver:hover { background: #333; color: #fff; text-decoration: none; }
     .btn-volver i { margin-right: 7px; }
 
-    /* ---- Sidebar Auspiciantes ---- */
     .sidebar-auspiciantes {
       background: #fff;
       border-radius: 8px;
@@ -214,9 +249,6 @@
 
 <body>
 
-  <!--==========================
-    Header
-  ============================-->
   <header id="header">
     <div id="index-header" class="container center-menu">
       <div id="logo" class="index-logo pull-left no-visible">
@@ -237,52 +269,66 @@
     </div>
   </header>
 
-  <!--==========================
-    Encabezado de página
-  ============================-->
   <div id="page-header">
     <div class="container">
-      <h1>Nombre Apellido</h1>
-      <p>Conferencista Invitado/a &mdash; Congreso Papapykuaa 2026</p>
+      <h1>Víctor Hugo González</h1>
+      <p>Conferencista Invitado &mdash; Congreso Papapykuaa 2026</p>
     </div>
   </div>
 
-  <!-- Breadcrumb -->
   <div class="breadcrumb-nav">
     <div class="container">
       <a href="../index.html">Inicio</a>
       <span class="separator">/</span>
       <a href="../index.html#conferencistas">Conferencistas</a>
       <span class="separator">/</span>
-      <strong>Nombre Apellido</strong>
+      <strong>Víctor Hugo González</strong>
     </div>
   </div>
 
-  <!--==========================
-    Contenido principal
-  ============================-->
   <section id="perfil-main">
     <div class="container">
       <div class="row">
 
-        <!-- ===== Columna izquierda: foto + datos básicos ===== -->
+        <!-- Columna izquierda -->
         <div class="col-lg-3 col-md-4">
           <div class="perfil-foto-card wow fadeInLeft">
-            <img src="../img/conferencistas/nombre-apellido.jpg" alt="Nombre Apellido">
-            <h3>Nombre Apellido</h3>
-            <p class="institucion">Universidad / Institución<br>País</p>
-            <span class="pais-badge"><i class="fa fa-map-marker"></i> País</span>
+            <img src="../img/victor.jpg" alt="Víctor Hugo González">
+            <h3>Víctor Hugo González</h3>
+            <p class="institucion">
+              Universidad Nacional de General Sarmiento<br>
+              Universidad Nacional de Luján<br>
+              Argentina
+            </p>
+            <span class="pais-badge"><i class="fa fa-map-marker"></i> Argentina</span>
 
-            <!-- Redes sociales opcionales -->
-            <div class="perfil-redes">
-              <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-              <a href="#" title="ResearchGate"><i class="fa fa-flask"></i></a>
-              <a href="#" title="Correo"><i class="fa fa-envelope"></i></a>
+            <div class="stat-badges">
+              <div class="stat-badge">
+                <span class="num">Dr.</span>
+                <span class="lbl">Ciencias Sociales y Humanas</span>
+              </div>
+              <div class="stat-badge">
+                <span class="num">2</span>
+                <span class="lbl">Libros publicados</span>
+              </div>
             </div>
+
+            <div class="perfil-redes" style="margin-top:14px;">
+              <a href="https://orcid.org/0000-0002-8857-3705" target="_blank" rel="noopener noreferrer" title="ORCID">
+                <i class="fa fa-id-badge"></i>
+              </a>
+              <a href="mailto:victor4581@gmail.com" title="Correo electrónico">
+                <i class="fa fa-envelope"></i>
+              </a>
+            </div>
+            <p style="font-size:0.75rem;color:#aaa;margin-top:10px;margin-bottom:0;">
+              <a href="https://orcid.org/0000-0002-8857-3705" target="_blank" rel="noopener noreferrer"
+                 style="color:#f82249;text-decoration:none;">ORCID: 0000-0002-8857-3705</a>
+            </p>
           </div>
         </div>
 
-        <!-- ===== Columna central: curriculum ===== -->
+        <!-- Columna central -->
         <div class="col-lg-6 col-md-8">
           <a href="../index.html#conferencistas" class="btn-volver wow fadeInUp">
             <i class="fa fa-arrow-left"></i> Volver a Conferencistas
@@ -291,63 +337,134 @@
           <div class="perfil-content wow fadeInUp">
             <h2><i class="fa fa-user-circle-o" style="color:#f82249;margin-right:10px;"></i>Perfil Académico</h2>
 
-            <!-- Biografía / Resumen -->
             <p>
-              Breve descripción del conferencista. Podés escribir aquí un párrafo introductorio
-              sobre su trayectoria académica y profesional.
+              <strong>Víctor Hugo González</strong> es Doctor en Ciencias Sociales y Humanas por la
+              Universidad Nacional de Luján (2023) y Especialista en Didáctica de las Ciencias con
+              orientación en Matemática por la Universidad Nacional de General Sarmiento. Con una sólida
+              trayectoria en docencia universitaria e investigación educativa, se desempeña como
+              investigador-docente en la UNGS y el ISFD N°51, con foco en la enseñanza de la matemática,
+              la formación de profesores y el uso de recursos educativos digitales.
             </p>
 
             <!-- Formación académica -->
             <h4><i class="fa fa-graduation-cap"></i> Formación Académica</h4>
             <ul>
-              <li><strong>Doctor/a en [Área]</strong> – Universidad, País (Año)</li>
-              <li><strong>Magíster en [Área]</strong> – Universidad, País (Año)</li>
-              <li><strong>Licenciado/a en [Área]</strong> – Universidad, País (Año)</li>
+              <li>
+                <strong>Doctor en Ciencias Sociales y Humanas</strong> – Universidad Nacional de Luján (UNLu).
+                Acreditada CONEAU Res. N° 652/05 Cat. B. Egreso: 2023.
+              </li>
+              <li>
+                <strong>Especialista en Didáctica de las Ciencias con Orientación en Matemática</strong> –
+                Universidad Nacional de General Sarmiento (UNGS). CONEAU Res. N° 234-CONEAU-17 Cat. B.
+                Egreso: 2014. Promedio: 9,33.
+              </li>
+              <li>
+                <strong>Profesor Universitario en Matemática</strong> – UNGS. Res. Ministerial 2563/98.
+                Egreso: 2004. Promedio: 8,06.
+              </li>
+              <li>
+                <strong>Diploma Universitario de Estudios Generales con Mención en Ciencias Exactas</strong> –
+                UNGS. Egreso: 2003. Promedio: 8,10.
+              </li>
             </ul>
 
-            <!-- Trayectoria profesional -->
-            <h4><i class="fa fa-briefcase"></i> Trayectoria Profesional</h4>
+            <!-- Trayectoria docente -->
+            <h4><i class="fa fa-briefcase"></i> Trayectoria Docente</h4>
+
+            <p><strong>Universidad Nacional de General Sarmiento (UNGS)</strong></p>
             <ul>
-              <li>Cargo actual – Institución (Desde Año)</li>
-              <li>Cargo anterior – Institución (Año – Año)</li>
+              <li>Investigador-docente nivel <strong>Jefe de Trabajos Prácticos (regular)</strong>, dedicación exclusiva. Desde 01/03/2016 (continúa). Subrogación a Profesor C: 01/03/2023 – 31/07/2023.</li>
+              <li>Investigador-docente nivel Ayudante de Primera (regular), dedicación exclusiva. 2006–2016.</li>
+              <li>Docente MAF D, dedicación simple. 2005–2006.</li>
             </ul>
 
-            <!-- Líneas de investigación -->
-            <h4><i class="fa fa-search"></i> Líneas de Investigación</h4>
+            <p><strong>Universidad Nacional de Luján (UNLu)</strong></p>
             <ul>
-              <li>Línea de investigación 1</li>
-              <li>Línea de investigación 2</li>
-              <li>Línea de investigación 3</li>
+              <li>Investigador-docente nivel <strong>Profesor Adjunto (regular)</strong>, dedicación simple. Res. HCS N° 0000885/18. 2019–2025. Ingresó a carrera docente en noviembre de 2024.</li>
+              <li>Jefe de Trabajos Prácticos (regular). Res. HCS N° 178/14. 2014–2019.</li>
+              <li>Ayudante de Primera (interino). 2011–2014.</li>
             </ul>
 
-            <!-- Publicaciones destacadas -->
-            <h4><i class="fa fa-book"></i> Publicaciones Destacadas</h4>
+            <p><strong>Instituto Superior de Formación Docente N° 51 (ISFD N° 51)</strong> – Profesorado de Educación Secundaria en Matemática</p>
             <ul>
-              <li>Autor/a (Año). <em>Título del artículo</em>. Revista, Vol(N), pp.</li>
-              <li>Autor/a (Año). <em>Título del libro</em>. Editorial.</li>
+              <li>Educación para la Diversidad (3° año, desde agosto 2025)</li>
+              <li>Fundamentos de Matemática (4° año, desde mayo 2024)</li>
+              <li>Álgebra I (1° año, desde septiembre 2024)</li>
             </ul>
+
+            <!-- Investigación -->
+            <h4><i class="fa fa-search"></i> Proyectos de Investigación</h4>
+            <div class="logro-destacado">
+              <i class="fa fa-flask"></i>
+              <strong>Investigador asistente</strong> – <em>Un estudio sobre propuestas de enseñanza de Matemática que usan recursos educativos digitales</em>. UNGS. Período: 2026–2028. Directora: Paula Leonian.
+            </div>
+
+            <!-- Producción científica -->
+            <h4><i class="fa fa-book"></i> Producción Científica Destacada</h4>
+
+            <p><strong>Tesis doctoral</strong></p>
+            <div class="pub-item">
+              González, V. (2023). <em>Uso de libros escolares para la alfabetización matemática en el nivel secundario. Un estudio en formación de profesores.</em> Doctorado UNLu en Ciencias Sociales y Humanas. Defensa: 05/10/2023.<br>
+              <a href="https://ri.unlu.edu.ar/xmlui/handle/rediunlu/1989" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-external-link"></i> ri.unlu.edu.ar
+              </a>
+            </div>
+
+            <p><strong>Libros</strong></p>
+            <div class="pub-item">
+              Rodríguez, M. (Comp.); Enciso, V., González, V., Lezcano, A. y Pochulu, M. (2021).
+              <em>Herramientas didácticas para planificar la enseñanza de la matemática.</em>
+              ISBN: 987-99925-10-21-6.<br>
+              <a href="https://cta.unp.edu.py/pinv18-1350-practicas-de-la-ensenanza-de-las-matematicas/" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-external-link"></i> Ver publicación
+              </a>
+            </div>
+            <div class="pub-item">
+              Rodríguez, M. (Coord.); Barreiro, P., Casetta, I., Chacón, M., González, V. et al. (2019).
+              <em>Heurísticas en la resolución de problemas matemáticos.</em>
+              Sub-Serie "Investigaciones en Educación Matemática", UNGS.<br>
+              <a href="https://ediciones.ungs.edu.ar/wp-content/uploads/2020/04/9789876304405-completo.pdf" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-external-link"></i> Ver publicación (PDF)
+              </a>
+            </div>
+
+            <p><strong>Capítulo en libro</strong></p>
+            <div class="pub-item">
+              González, V. y Rodríguez, M. (2024). Análisis de una tarea que promueve la alfabetización matemática desde la Educación Matemática Crítica y las nuevas tecnologías. En: <em>Educación Matemática. Aportes a la formación docente desde distintos enfoques teóricos.</em> Vol. 2. Sub-Serie "Investigaciones en Educación Matemática", UNGS.
+            </div>
+
+            <p><strong>Artículo</strong></p>
+            <div class="pub-item">
+              González, V. y Enciso, V. (2026). La confianza en el desarrollo profesional docente: un estudio sobre permanencia y abandono. <em>PARADIGMA.</em><br>
+              <a href="https://doi.org/10.37618/PARADIGMA.1011-2251.2026.e2026014.id1816" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-external-link"></i> https://doi.org/10.37618/PARADIGMA.1011-2251.2026.e2026014.id1816
+              </a>
+            </div>
 
             <!-- Conferencia en el evento -->
             <div class="conferencia-badge">
-              <h5><i class="fa fa-microphone"></i> Conferencia en Papapykuaa 2026</h5>
-              <p><strong>Título de la conferencia o taller a cargo</strong><br>
-              Descripción breve de la temática que abordará en el congreso.</p>
+              <h5><i class="fa fa-microphone"></i> Conferencista Invitado &mdash; Papapykuaa 2026</h5>
+              <p>
+                Víctor Hugo González participará como conferencista invitado en el
+                <strong>Congreso Nacional de Educación Matemática "Papapykuaa"</strong>,
+                15 al 17 de Octubre de 2026, Universidad Nacional de Itapúa, Encarnación, Paraguay.
+              </p>
             </div>
 
           </div>
         </div>
         <!-- Fin columna curriculum -->
 
-        <!-- ===== Sidebar: Auspiciantes ===== -->
+        <!-- Sidebar -->
         <div class="col-lg-3">
           <div class="sidebar-auspiciantes wow fadeInRight">
             <h4><i class="fa fa-handshake-o" style="margin-right:6px;"></i>Organizan y Apoyan</h4>
-            <div class="supporter-logo"><img src="../img/supporters/logo_uni.png" class="img-fluid" alt="UNI"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_una.png" class="img-fluid" alt="UNA"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unc.png" class="img-fluid" alt="UNC"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_une.png" class="img-fluid" alt="UNE"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unp.png" class="img-fluid" alt="UNP"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="UNaMis"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_uni.png" class="img-fluid" alt="Universidad Nacional de Itapúa"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_una.png" class="img-fluid" alt="Universidad Nacional de Asunción"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unc.png" class="img-fluid" alt="Universidad Nacional de Concepción"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_une.png" class="img-fluid" alt="Universidad Nacional del Este"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unp.png" class="img-fluid" alt="Universidad Nacional de Pilar"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="Universidad Nacional de Misiones"></div>
             <div class="supporter-logo">
               <a href="../doc/resmec.pdf" target="_blank" rel="noopener noreferrer">
                 <img src="../img/supporters/logo_mec.png" class="img-fluid" alt="MEC">
@@ -368,9 +485,6 @@
     </div>
   </section>
 
-  <!--==========================
-    Footer
-  ============================-->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -415,7 +529,6 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
-  <!-- JavaScript Libraries -->
   <script src="../lib/jquery/jquery.min.js"></script>
   <script src="../lib/jquery/jquery-migrate.min.js"></script>
   <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>

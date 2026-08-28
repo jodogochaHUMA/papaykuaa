@@ -204,11 +204,13 @@ function enviarCorreoConfirmacion($nombre, $apellido, $documento, $email, $telef
                         padding:18px 20px;margin:20px 0;">
               <p style="margin:0;color:#555;line-height:1.7;">
                 <strong style="color:#333;">Pr&#243;ximos pasos:</strong><br><br>
-                En los <strong>pr&#243;ximos d&#237;as</strong> estaremos envi&#225;ndote la informaci&#243;n de la
-                <strong>cuenta bancaria y los datos necesarios para realizar el pago del arancel</strong>
-                correspondiente a tu categor&#237;a de inscripci&#243;n.<br><br>
-                Te pedimos que est&#233;s atento/a a tu correo electr&#243;nico.
-                Si ten&#233;s alguna consulta, pod&#233;s responder este correo.
+                La informaci&#243;n de la <strong>cuenta bancaria y los datos necesarios para realizar el pago del arancel</strong>
+                correspondiente a tu categor&#237;a de inscripci&#243;n son los siguientes:.<br><br>
+                Titular de la cuenta: AFUNI<br>
+                Cuenta Corriente: 0001000008094980<br>
+                RUC: 80028890-4<br>
+                Banco Sudameris<br>
+                Te pedimos que respondas este correo con el comprobante de pago para proveerte el <strong style="color:#333;">Ticket de Acceso.</strong>
               </p>
             </div>
 

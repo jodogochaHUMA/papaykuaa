@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Nombre Apellido | Congreso Nacional de Educación Matemática - Papapykuaa</title>
+  <title>Mabel Rodríguez | Congreso Nacional de Educación Matemática - Papapykuaa</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="conferencista, matemática, educación, Paraguay, Papapykuaa" name="keywords">
-  <meta content="Perfil académico de Nombre Apellido, conferencista invitado del Congreso Papapykuaa." name="description">
+  <meta content="Mabel Rodríguez, conferencista, matemática, educación, Argentina, UNGS, UBA, Papapykuaa" name="keywords">
+  <meta content="Perfil académico de Mabel Rodríguez, conferencista invitada del Congreso Nacional de Educación Matemática Papapykuaa." name="description">
 
   <!-- Favicons -->
   <link href="../img/favicon.png" rel="icon">
@@ -28,7 +28,6 @@
   <link href="../css/style.css" rel="stylesheet">
 
   <style>
-    /* ---- Encabezado de página interna ---- */
     #page-header {
       background: linear-gradient(rgba(6, 12, 34, 0.75), rgba(6, 12, 34, 0.75)),
                   url('../img/intro-bg.jpg') center center no-repeat;
@@ -40,15 +39,12 @@
     #page-header h1 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
     #page-header p  { font-size: 1.05rem; color: #ccc; margin: 0; }
 
-    /* ---- Breadcrumb ---- */
     .breadcrumb-nav { background: #eee; padding: 10px 0; font-size: 0.9rem; }
     .breadcrumb-nav a { color: #f82249; }
     .breadcrumb-nav .separator { margin: 0 8px; color: #999; }
 
-    /* ---- Layout ---- */
     #perfil-main { padding: 50px 0; background: #f9f9f9; }
 
-    /* ---- Foto y datos básicos ---- */
     .perfil-foto-card {
       background: #fff;
       border-radius: 8px;
@@ -69,15 +65,16 @@
       margin-bottom: 18px;
     }
     .perfil-foto-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #191919;
       margin-bottom: 4px;
     }
     .perfil-foto-card .institucion {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: #888;
       margin-bottom: 14px;
+      line-height: 1.6;
     }
     .perfil-foto-card .pais-badge {
       display: inline-block;
@@ -88,6 +85,17 @@
       padding: 4px 12px;
       border-radius: 20px;
       margin-bottom: 16px;
+    }
+    .cargo-actual {
+      display: inline-block;
+      background: #060c22;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      line-height: 1.4;
     }
     .perfil-redes a {
       display: inline-block;
@@ -103,7 +111,35 @@
     }
     .perfil-redes a:hover { background: #f82249; color: #fff; }
 
-    /* ---- Contenido del curriculum ---- */
+    .stat-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 6px;
+    }
+    .stat-badge {
+      background: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 8px 10px;
+      text-align: center;
+      min-width: 68px;
+    }
+    .stat-badge .num {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #f82249;
+      line-height: 1.2;
+    }
+    .stat-badge .lbl {
+      display: block;
+      font-size: 0.65rem;
+      color: #888;
+      line-height: 1.3;
+    }
+
     .perfil-content {
       background: #fff;
       border-radius: 8px;
@@ -123,28 +159,32 @@
       font-size: 1rem;
       font-weight: 700;
       color: #f82249;
-      margin-top: 25px;
-      margin-bottom: 8px;
+      margin-top: 28px;
+      margin-bottom: 10px;
     }
-    .perfil-content p {
-      color: #555;
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-    .perfil-content ul {
-      color: #555;
-      line-height: 1.8;
-      padding-left: 20px;
-    }
-    .perfil-content ul li { margin-bottom: 6px; }
+    .perfil-content h4 i { margin-right: 8px; }
+    .perfil-content p { color: #555; line-height: 1.8; margin-bottom: 12px; }
+    .perfil-content ul { color: #555; line-height: 1.8; padding-left: 20px; }
+    .perfil-content ul li { margin-bottom: 8px; }
 
-    /* ---- Conferencia destacada ---- */
+    .logro-destacado {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      color: #555;
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+    .logro-destacado i { color: #ffc107; margin-right: 8px; }
+
     .conferencia-badge {
       background: linear-gradient(135deg, #060c22, #1a2a5e);
       border-radius: 8px;
       padding: 22px 25px;
       color: #fff;
-      margin-top: 25px;
+      margin-top: 28px;
     }
     .conferencia-badge h5 {
       font-size: 0.85rem;
@@ -154,14 +194,8 @@
       letter-spacing: 1px;
       margin-bottom: 8px;
     }
-    .conferencia-badge p {
-      color: #ddd;
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
+    .conferencia-badge p { color: #ddd; margin: 0; font-size: 0.95rem; line-height: 1.6; }
 
-    /* ---- Botón volver ---- */
     .btn-volver {
       display: inline-block;
       background: #555;
@@ -177,7 +211,6 @@
     .btn-volver:hover { background: #333; color: #fff; text-decoration: none; }
     .btn-volver i { margin-right: 7px; }
 
-    /* ---- Sidebar Auspiciantes ---- */
     .sidebar-auspiciantes {
       background: #fff;
       border-radius: 8px;
@@ -214,9 +247,6 @@
 
 <body>
 
-  <!--==========================
-    Header
-  ============================-->
   <header id="header">
     <div id="index-header" class="container center-menu">
       <div id="logo" class="index-logo pull-left no-visible">
@@ -237,52 +267,57 @@
     </div>
   </header>
 
-  <!--==========================
-    Encabezado de página
-  ============================-->
   <div id="page-header">
     <div class="container">
-      <h1>Nombre Apellido</h1>
-      <p>Conferencista Invitado/a &mdash; Congreso Papapykuaa 2026</p>
+      <h1>Mabel Rodríguez</h1>
+      <p>Conferencista Invitada &mdash; Congreso Papapykuaa 2026</p>
     </div>
   </div>
 
-  <!-- Breadcrumb -->
   <div class="breadcrumb-nav">
     <div class="container">
       <a href="../index.html">Inicio</a>
       <span class="separator">/</span>
       <a href="../index.html#conferencistas">Conferencistas</a>
       <span class="separator">/</span>
-      <strong>Nombre Apellido</strong>
+      <strong>Mabel Rodríguez</strong>
     </div>
   </div>
 
-  <!--==========================
-    Contenido principal
-  ============================-->
   <section id="perfil-main">
     <div class="container">
       <div class="row">
 
-        <!-- ===== Columna izquierda: foto + datos básicos ===== -->
+        <!-- Columna izquierda -->
         <div class="col-lg-3 col-md-4">
           <div class="perfil-foto-card wow fadeInLeft">
-            <img src="../img/conferencistas/nombre-apellido.jpg" alt="Nombre Apellido">
-            <h3>Nombre Apellido</h3>
-            <p class="institucion">Universidad / Institución<br>País</p>
-            <span class="pais-badge"><i class="fa fa-map-marker"></i> País</span>
+            <img src="../img/mabel.jpg" alt="Mabel Rodríguez">
+            <h3>Mabel Rodríguez</h3>
+            <p class="institucion">
+              Universidad Nacional de General Sarmiento<br>
+              Universidad Nacional del Comahue<br>
+              Argentina
+            </p>
+            <span class="cargo-actual">
+              <i class="fa fa-star" style="color:#f82249;margin-right:5px;"></i>
+              Categoría I – Prog. de Incentivos
+            </span><br>
+            <span class="pais-badge"><i class="fa fa-map-marker"></i> Argentina</span>
 
-            <!-- Redes sociales opcionales -->
-            <div class="perfil-redes">
-              <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-              <a href="#" title="ResearchGate"><i class="fa fa-flask"></i></a>
-              <a href="#" title="Correo"><i class="fa fa-envelope"></i></a>
+            <div class="stat-badges">
+              <div class="stat-badge">
+                <span class="num">Dra.</span>
+                <span class="lbl">UBA – Matemática</span>
+              </div>
+              <div class="stat-badge">
+                <span class="num">Cat. I</span>
+                <span class="lbl">Prog. Incentivos</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- ===== Columna central: curriculum ===== -->
+        <!-- Columna central -->
         <div class="col-lg-6 col-md-8">
           <a href="../index.html#conferencistas" class="btn-volver wow fadeInUp">
             <i class="fa fa-arrow-left"></i> Volver a Conferencistas
@@ -291,63 +326,105 @@
           <div class="perfil-content wow fadeInUp">
             <h2><i class="fa fa-user-circle-o" style="color:#f82249;margin-right:10px;"></i>Perfil Académico</h2>
 
-            <!-- Biografía / Resumen -->
             <p>
-              Breve descripción del conferencista. Podés escribir aquí un párrafo introductorio
-              sobre su trayectoria académica y profesional.
+              <strong>Mabel Rodríguez</strong> es Licenciada y Doctora de la
+              <strong>Universidad de Buenos Aires (UBA)</strong> en el área de Matemática.
+              Cuenta con <strong>Categoría I en el Programa de Incentivos</strong>, el máximo
+              reconocimiento para investigadores-docentes universitarios en Argentina.
+              Su trayectoria combina la docencia universitaria de alto nivel, la dirección de programas
+              académicos y una prolífica producción científica en Educación Matemática y Formación
+              de Profesores, tanto a nivel nacional como internacional.
             </p>
 
             <!-- Formación académica -->
             <h4><i class="fa fa-graduation-cap"></i> Formación Académica</h4>
             <ul>
-              <li><strong>Doctor/a en [Área]</strong> – Universidad, País (Año)</li>
-              <li><strong>Magíster en [Área]</strong> – Universidad, País (Año)</li>
-              <li><strong>Licenciado/a en [Área]</strong> – Universidad, País (Año)</li>
+              <li>
+                <strong>Doctora en Matemática</strong> – Universidad de Buenos Aires (UBA), Argentina.
+              </li>
+              <li>
+                <strong>Licenciada en Matemática</strong> – Universidad de Buenos Aires (UBA), Argentina.
+              </li>
             </ul>
 
-            <!-- Trayectoria profesional -->
-            <h4><i class="fa fa-briefcase"></i> Trayectoria Profesional</h4>
+            <!-- Cargo actual y trayectoria -->
+            <h4><i class="fa fa-briefcase"></i> Trayectoria Académica y Docente</h4>
+
+            <div class="logro-destacado">
+              <i class="fa fa-star"></i>
+              <strong>Profesora Titular Regular</strong> – Instituto del Desarrollo Humano,
+              Universidad Nacional de General Sarmiento (UNGS), Argentina.
+              Investigadora-docente con <strong>Categoría I</strong> en el Programa de Incentivos.
+            </div>
+
             <ul>
-              <li>Cargo actual – Institución (Desde Año)</li>
-              <li>Cargo anterior – Institución (Año – Año)</li>
+              <li>
+                <strong>Directora de la Especialización en Didáctica de las Ciencias</strong> – UNGS.
+              </li>
+              <li>
+                <strong>Ex Directora del Profesorado Universitario de Educación Superior en Matemática</strong> – UNGS.
+              </li>
+              <li>
+                <strong>Directora del Doctorado en Enseñanza de las Ciencias Exactas y Naturales</strong> –
+                Universidad Nacional del Comahue, Argentina (cargo actual).
+              </li>
+              <li>
+                <strong>Colaboradora del Instituto Nacional de Formación Docente (INFD)</strong> –
+                Ministerio de Educación de la Nación Argentina.
+              </li>
+              <li>
+                Responsable de numerosas <strong>capacitaciones a docentes de nivel superior</strong>
+                en distintas instituciones del país.
+              </li>
             </ul>
 
-            <!-- Líneas de investigación -->
-            <h4><i class="fa fa-search"></i> Líneas de Investigación</h4>
+            <!-- Investigación -->
+            <h4><i class="fa fa-search"></i> Áreas de Investigación</h4>
             <ul>
-              <li>Línea de investigación 1</li>
-              <li>Línea de investigación 2</li>
-              <li>Línea de investigación 3</li>
+              <li><strong>Educación Matemática</strong></li>
+              <li><strong>Formación de Profesores de Matemática</strong></li>
+              <li>Didáctica de las Ciencias con orientación en Matemática</li>
+              <li>Desarrollo curricular en formación docente inicial y continua</li>
             </ul>
 
-            <!-- Publicaciones destacadas -->
-            <h4><i class="fa fa-book"></i> Publicaciones Destacadas</h4>
-            <ul>
-              <li>Autor/a (Año). <em>Título del artículo</em>. Revista, Vol(N), pp.</li>
-              <li>Autor/a (Año). <em>Título del libro</em>. Editorial.</li>
-            </ul>
+            <!-- Producción científica -->
+            <h4><i class="fa fa-book"></i> Producción Científica</h4>
+            <p>
+              Cuenta con <strong>numerosas presentaciones en congresos nacionales e internacionales</strong>
+              y <strong>artículos publicados en revistas especializadas</strong> de Educación Matemática.
+              Tiene una amplia trayectoria en <strong>formación de recursos humanos</strong>, habiendo
+              dirigido tesis de posgrado y proyectos de investigación de manera continua.
+            </p>
+            <p>
+              Entre sus publicaciones como directora y coordinadora se destacan obras colectivas
+              en la Sub-Serie <em>"Investigaciones en Educación Matemática"</em> de la Serie
+              Educación en Ciencias, Colección Educación, UNGS.
+            </p>
 
             <!-- Conferencia en el evento -->
             <div class="conferencia-badge">
-              <h5><i class="fa fa-microphone"></i> Conferencia en Papapykuaa 2026</h5>
-              <p><strong>Título de la conferencia o taller a cargo</strong><br>
-              Descripción breve de la temática que abordará en el congreso.</p>
+              <h5><i class="fa fa-microphone"></i> Conferencista Invitada &mdash; Papapykuaa 2026</h5>
+              <p>
+                Mabel Rodríguez participará como conferencista invitada en el
+                <strong>Congreso Nacional de Educación Matemática "Papapykuaa"</strong>,
+                15 al 17 de Octubre de 2026, Universidad Nacional de Itapúa, Encarnación, Paraguay.
+              </p>
             </div>
 
           </div>
         </div>
         <!-- Fin columna curriculum -->
 
-        <!-- ===== Sidebar: Auspiciantes ===== -->
+        <!-- Sidebar -->
         <div class="col-lg-3">
           <div class="sidebar-auspiciantes wow fadeInRight">
             <h4><i class="fa fa-handshake-o" style="margin-right:6px;"></i>Organizan y Apoyan</h4>
-            <div class="supporter-logo"><img src="../img/supporters/logo_uni.png" class="img-fluid" alt="UNI"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_una.png" class="img-fluid" alt="UNA"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unc.png" class="img-fluid" alt="UNC"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_une.png" class="img-fluid" alt="UNE"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unp.png" class="img-fluid" alt="UNP"></div>
-            <div class="supporter-logo"><img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="UNaMis"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_uni.png" class="img-fluid" alt="Universidad Nacional de Itapúa"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_una.png" class="img-fluid" alt="Universidad Nacional de Asunción"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unc.png" class="img-fluid" alt="Universidad Nacional de Concepción"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_une.png" class="img-fluid" alt="Universidad Nacional del Este"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unp.png" class="img-fluid" alt="Universidad Nacional de Pilar"></div>
+            <div class="supporter-logo"><img src="../img/supporters/logo_unamis.png" class="img-fluid" alt="Universidad Nacional de Misiones"></div>
             <div class="supporter-logo">
               <a href="../doc/resmec.pdf" target="_blank" rel="noopener noreferrer">
                 <img src="../img/supporters/logo_mec.png" class="img-fluid" alt="MEC">
@@ -368,9 +445,6 @@
     </div>
   </section>
 
-  <!--==========================
-    Footer
-  ============================-->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -415,7 +489,6 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
-  <!-- JavaScript Libraries -->
   <script src="../lib/jquery/jquery.min.js"></script>
   <script src="../lib/jquery/jquery-migrate.min.js"></script>
   <script src="../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
