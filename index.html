@@ -275,9 +275,27 @@
   ============================-->
   <section id="intro">
     <div class="intro-container wow fadeIn">
-      <a href="https://youtu.be/p1BA2BAEnlY" class="venobox play-logo mb-4" data-vbtype="video" data-autoplay="true">
+      <!-- Trigger -->
+      <a href="#" class="play-logo mb-4" data-toggle="modal" data-target="#modalVideoIntro">
         <img src="img/logo_intro.png" alt="" title="">
       </a>
+
+      <!-- Modal -->
+      <div class="modal fade" id="modalVideoIntro" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: min(380px, 90vw);" role="document">
+          <div class="modal-content" style="background:#000; border:none;">
+            <div class="modal-header" style="border:none; padding: 8px 12px;">
+              <button type="button" class="close" data-dismiss="modal"
+                      style="color:#fff; opacity:1; font-size:1.8rem;">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+              <video id="videoIntro" controls autoplay style="width:100%; display:block;">
+                <source src="videos/congreso.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
       <h1 class="mb-4 pb-0">
         Papapykuaa <br>
         <span>Congreso Nacional de Educación Matemática</span>
@@ -463,14 +481,14 @@
       <div class="container">
 
         <div class="section-header">
-          <h2>Nos invitan al Congreso</h2>
+          <h2>Videos</h2>
           <p>Referentes de la educación y la academia comparten su invitación al Segundo Congreso Nacional de Educación Matemática "Papapykuaa".</p>
         </div>
 
         <div class="row justify-content-center">
 
           <!-- ===== VIDEO: Clarito Rojas Marín ===== -->
-          <div class="col-lg-5 col-md-6 mb-4">
+          <div class="col-lg-4 col-md-4 mb-4">
             <div style="background: #fff;
                         border-radius: 12px;
                         overflow: hidden;
@@ -516,7 +534,7 @@
           <!-- ===== FIN VIDEO ===== -->
 
           <!-- ===== VIDEO: Hermenegildo Cohene ===== -->
-          <div class="col-lg-5 col-md-6 mb-4">
+          <div class="col-lg-4 col-md-4 mb-4">
             <div style="background: #fff;
                         border-radius: 12px;
                         overflow: hidden;
@@ -554,6 +572,60 @@
                   <strong>Segundo Congreso Nacional de Educación Matemática "Papapykuaa"</strong>. 🧮🇵🇾
                   <br><br>
                   📅 <strong>15 al 17 de octubre de 2026</strong> &mdash; Universidad Nacional de Itapúa, Encarnación.
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <!-- ===== FIN VIDEO ===== -->
+
+          <!-- ===== VIDEO: Invitación al Congreso ===== -->
+          <div class="col-lg-4 col-md-4 mb-4">
+            <div style="background: #fff;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                 onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 10px 30px rgba(248,34,73,0.15)';"
+                 onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.10)';">
+
+              <!-- Video -->
+              <div style="position: relative; width: 100%; background: #000; max-width: 300px; margin: 0 auto;">
+                <video
+                  controls
+                  preload="metadata"
+                  style="width: 100%; display: block; object-fit: contain;">
+                  <source src="videos/congreso.mp4" type="video/mp4">
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              </div>
+
+              <!-- Descripción estilo Instagram -->
+              <div style="padding: 18px 20px 20px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #f82249, #060c22);
+                              display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i class="fa fa-play" style="color: #fff; font-size: 0.8rem;"></i>
+                  </div>
+                  <div>
+                    <p style="font-weight: 700; color: #191919; margin: 0; font-size: 0.92rem;">Congreso Papapykuaa 2026</p>
+                    <p style="color: #888; margin: 0; font-size: 0.8rem;">Invitación oficial</p>
+                  </div>
+                </div>
+                <p style="color: #333; font-size: 0.9rem; line-height: 1.65; margin: 0;">
+                  🔢 Las <strong>matemáticas</strong> son la base de toda la tecnología que mueve el mundo hoy: 
+                  desde la inteligencia artificial hasta los teléfonos en nuestras manos. 
+                  Sin matemáticas, <em>no hay futuro</em>. 🌐💡
+                  <br><br>
+                  Por eso te invitamos al <strong>Segundo Congreso Nacional de Educación Matemática</strong>
+                  <strong>"Papapykuaa"</strong> 🎓📐, el espacio donde docentes, investigadores y estudiantes 
+                  se unen para transformar la enseñanza de las matemáticas en Paraguay. 🇵🇾✨
+                  <br><br>
+                  🌐 Inscribite en nuestro portal: <strong> repem.net </strong><br>
+                  📅 <strong>15, 16 y 17 de octubre de 2026</strong><br>
+                  📍 Universidad Nacional de Itapúa &mdash; Encarnación, Paraguay<br>
+                  <br>
+                  ¡Te esperamos! 🙌🧮
                 </p>
               </div>
 
@@ -1150,6 +1222,15 @@
   <script src="lib/wow/wow.min.js"></script>
   <script src="lib/venobox/venobox.min.js"></script>
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Script para pausar el video al cerrar el modal -->
+  <script>
+    $('#modalVideoIntro').on('hidden.bs.modal', function () {
+      var v = document.getElementById('videoIntro');
+      v.pause();
+      v.currentTime = 0;
+    });
+  </script>
 
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.html"></script>
