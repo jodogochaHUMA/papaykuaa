@@ -291,8 +291,6 @@ try {
                     <th>Fecha</th>
                     <th>Estado</th>
                     <th>Comprobante</th>
-                    <th>Tipo</th>
-                    <th>QR</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -312,8 +310,6 @@ try {
                       <td><?= htmlspecialchars($r['telefono'], ENT_QUOTES, 'UTF-8') ?></td>
                       <td><?= htmlspecialchars($r['fecha_registro'], ENT_QUOTES, 'UTF-8') ?></td>
                       <td><span class="badge <?= $badge ?>"><?= htmlspecialchars($estado, ENT_QUOTES, 'UTF-8') ?></span></td>
-                      <td><?= htmlspecialchars((string)($r['numero_comprobante'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                      <td><?= htmlspecialchars((string)($r['tipo'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
                       <td>
                         <?php if ($qrGenerado): ?>
                           <span class="badge badge-info">Generado</span>
