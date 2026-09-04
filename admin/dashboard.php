@@ -144,9 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'gener
             $fullPath = $dir . '/' . $filename;
             $relPath = 'admin/qrs/' . $filename;
 
-            $logoPath = dirname(__DIR__) . '/img/log_intro.png';
+            $logoPath = dirname(__DIR__) . '/img/logo_intro.png';
             if (!file_exists($logoPath)) {
-                throw new RuntimeException('No se encontró el logo en img/log_intro.png');
+                throw new RuntimeException('No se encontró el logo en img/logo_intro.png');
             }
 
             // función definida en qr_helper.php
@@ -364,7 +364,7 @@ try {
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="#" class="brand-link text-center">
-      <img src="../img/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity:.9">
+      <img src="../img/logo_intro.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity:.9">
       <span class="brand-text font-weight-light">Papapykuaa</span>
     </a>
     <div class="sidebar">
