@@ -1,0 +1,21 @@
+# Proteger archivos de configuración sensibles
+<Files "db_config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Proteger también el script de creación de tabla por si acaso
+<Files "crear_tabla.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<FilesMatch "^(config\.php|db_config\.php|\.env|composer\.(json|lock)|package\.json)$">
+  Require all denied
+</FilesMatch>
+
+# Bloquear carpetas internas comunes
+RedirectMatch 403 ^/(admin/includes|includes|private|secure)/
+
+# Evitar listado de directorios
+Options -Indexes

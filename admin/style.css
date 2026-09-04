@@ -1,0 +1,203 @@
+:root{
+  --primary:#f82249;
+  --primary-dark:#cf1b3c;
+  --text:#1f2430;
+  --muted:#6d7485;
+  --card-bg:rgba(248, 230, 132, 0.78);
+  --border:rgba(255,255,255,.45);
+  --input-border:#d8deea;
+  --shadow:0 20px 45px rgba(20,24,40,.20);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Open Sans', Arial, sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(248,34,73,.20), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(26,42,94,.22), transparent 32%),
+    radial-gradient(circle at 50% 90%, rgba(74,144,226,.18), transparent 30%),
+    linear-gradient(135deg, #eef2ff 0%, #f8faff 55%, #f2f5fc 100%);
+}
+
+/* brillo decorativo */
+body::before{
+  content:"";
+  position:fixed;
+  inset:auto -120px -120px auto;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:linear-gradient(135deg, rgba(248,34,73,.25), rgba(248,34,73,0));
+  pointer-events:none;
+  filter:blur(8px);
+}
+
+.login-wrap{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.login-card{
+  width:100%;
+  max-width:480px;
+  border-radius:20px;
+  padding:34px 28px 30px;
+  text-align:center;
+  background:var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  animation:fadeUp .6s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* Logo grande (~300px) */
+.logo{
+  display:block;
+  width:100%;
+  max-width:300px;
+  height:auto;
+  margin:0 auto 16px;
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.12));
+}
+
+.login-card h1{
+  margin:0 0 8px;
+  font-family:'Raleway', Arial, sans-serif;
+  font-size:1.45rem;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.login-card p{
+  margin:0 0 18px;
+  color:var(--muted);
+  font-size:.94rem;
+}
+
+.login-card form{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+}
+
+/* Labels */
+.login-card label{
+  width:100%;
+  max-width:280px;
+  text-align:left;
+  margin-top:10px;
+  margin-bottom:6px;
+  font-size:.86rem;
+  font-weight:700;
+  color:#3a4253;
+}
+
+/* Inputs compactos */
+.login-card input{
+  width:100%;
+  max-width:280px;
+  padding:8px 10px;
+  border:1px solid var(--input-border);
+  border-radius:10px;
+  background:#fff;
+  font-size:.9rem;
+  color:#222;
+  transition:border-color .2s, box-shadow .2s, transform .1s;
+}
+
+.login-card input:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(248,34,73,.14);
+}
+
+.login-card input:hover{
+  border-color:#c8d0e0;
+}
+
+/* Botón */
+.login-card button{
+  margin-top:16px;
+  width:100%;
+  max-width:280px;
+  padding:10px 12px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  color:#fff;
+  font-size:.93rem;
+  font-weight:700;
+  letter-spacing:.2px;
+  background:linear-gradient(135deg, var(--primary), #ff4168);
+  box-shadow:0 8px 18px rgba(248,34,73,.30);
+  transition:transform .12s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.login-card button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 22px rgba(248,34,73,.35);
+  filter:saturate(1.05);
+}
+
+.login-card button:active{
+  transform:translateY(0);
+}
+
+/* Alerta elegante */
+.alert{
+  width:100%;
+  max-width:280px;
+  margin:4px auto 10px;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:.84rem;
+  color:#a00f2d;
+  background:linear-gradient(180deg, #ffe9ee 0%, #ffe3e9 100%);
+  border:1px solid #ffc7d3;
+}
+
+/* Dashboard (se mantiene prolijo) */
+.panel{max-width:1200px;margin:20px auto;padding:0 16px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.table-wrap{
+  background:#fff;
+  border-radius:14px;
+  padding:14px;
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+  overflow:auto
+}
+table{width:100%;border-collapse:collapse}
+th,td{border-bottom:1px solid #eceff6;padding:10px;text-align:left;font-size:.92rem}
+th{background:#fafbff}
+.btn{
+  background:linear-gradient(135deg, var(--primary), #ff4168);
+  color:#fff;border:none;padding:10px 14px;border-radius:10px;
+  cursor:pointer;text-decoration:none;display:inline-block
+}
+
+/* Responsive fino */
+@media (max-width: 480px){
+  .login-card{
+    padding:26px 18px 22px;
+    border-radius:16px;
+  }
+  .logo{max-width:240px}
+  .login-card h1{font-size:1.25rem}
+}
