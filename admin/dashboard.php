@@ -340,7 +340,7 @@ try {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard | Papapykuaa Admin</title>
+  <title>Dashboard | Papapykuaa</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
@@ -372,7 +372,7 @@ try {
         <ul class="nav nav-pills nav-sidebar flex-column">
           <li class="nav-item">
             <a href="dashboard.php" class="nav-link active">
-              <i class="nav-icon fas fa-users"></i><p>Preinscripciones</p>
+              <i class="nav-icon fas fa-users"></i><p>Inscripciones</p>
             </a>
           </li>
         </ul>
@@ -383,7 +383,7 @@ try {
   <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
-        <h1>Listado de preinscripciones</h1>
+        <h1>Lista de Inscriptos</h1>
       </div>
     </section>
 
@@ -438,9 +438,6 @@ try {
                   <th>Fecha</th>
                   <th>Estado</th>
                   <th>Comprobante</th>
-                  <th>Tipo</th>
-                  <th>QR</th>
-                  <th>Enviado</th>
                   <th>Acciones</th>
                 </tr>
                 </thead>
@@ -461,11 +458,8 @@ try {
                     <td><?= htmlspecialchars($r['telefono'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($r['fecha_registro'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><span class="badge <?= $badge ?>"><?= htmlspecialchars($estado, ENT_QUOTES, 'UTF-8') ?></span></td>
-                    <td><?= htmlspecialchars((string)($r['numero_comprobante'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><?= htmlspecialchars((string)($r['tipo'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= $qrGenerado ? '<span class="badge badge-info">Generado</span>' : '<span class="badge badge-secondary">Pendiente</span>' ?></td>
-                    <td><?= $qrEnviado ? '<span class="badge badge-success">Sí</span>' : '<span class="badge badge-secondary">No</span>' ?></td>
-
+                    
                     <td style="white-space:nowrap;">
                       <!-- Agregar comprobante: solo pendiente -->
                       <button
