@@ -5,7 +5,16 @@ require __DIR__ . '/config.php';
 require __DIR__ . '/auth.php';
 require_login();
 
-require __DIR__ . '/vendor/autoload.php';
+$autoloadAdmin = __DIR__ . '/vendor/autoload.php';
+$autoloadRoot  = dirname(__DIR__) . '/vendor/autoload.php';
+
+if (file_exists($autoloadAdmin)) {
+    require $autoloadAdmin;
+} elseif (file_exists($autoloadRoot)) {
+    require $autoloadRoot;
+} else {
+    die('No se encontró vendor/autoload.php. Ejecutá composer install.');
+}
 require __DIR__ . '/qr_helper.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
