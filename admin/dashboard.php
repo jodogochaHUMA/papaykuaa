@@ -421,10 +421,6 @@ try {
               <i class="fas fa-file-excel"></i> Exportar a Excel (CSV)
             </a>
 
-            <button class="btn btn-secondary mb-3 ml-2" disabled title="Función global aún no habilitada">
-              <i class="fas fa-paper-plane"></i> Enviar QR
-            </button>
-
             <div class="table-responsive">
               <table id="tablaInscriptos" class="table table-bordered table-striped">
                 <thead>
@@ -437,7 +433,7 @@ try {
                   <th>Teléfono</th>
                   <th>Fecha</th>
                   <th>Estado</th>
-                  <th>Comprobante</th>
+                  <th>QR</th>
                   <th>Acciones</th>
                 </tr>
                 </thead>
