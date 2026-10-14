@@ -19,3 +19,9 @@ RedirectMatch 403 ^/(admin/includes|includes|private|secure)/
 
 # Evitar listado de directorios
 Options -Indexes
+
+# Habilitar reescrituras
+RewriteEngine On
+
+# Redirigir /inscripciones y /inscripciones.html a la página de "inscripciones cerradas"
+RewriteRule ^inscripciones(?:\.html)?$ /inscripciones_cerradas.html [R=302,L]

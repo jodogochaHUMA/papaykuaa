@@ -32,6 +32,7 @@ class _ScannerPageState extends State<ScannerPage> {
   final MobileScannerController _controller = MobileScannerController();
   bool _isProcessing = false;
 
+  // Ajusta la URL a tu entorno (producción / staging)
   final String verifyUrl = 'https://repem.net/admin/verify_qr.php';
 
   Future<void> _validarQR(String code) async {
@@ -54,14 +55,21 @@ class _ScannerPageState extends State<ScannerPage> {
         final apellido = (persona['apellido'] ?? '').toString();
         final nombreCompleto = '$nombre $apellido'.trim();
 
+        final already = data['already_scanned'] == true;
+        final asistioAt = (persona['asistio_at'] ?? data['data']?['asistio_at'])?.toString();
+
         // Pausamos scanner para evitar lecturas múltiples
         await _controller.stop();
 
-        // Navega a pantalla de éxito
+        // Navega a pantalla de éxito mostrando si ya fue escaneado
         await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => SuccessPage(nombreCompleto: nombreCompleto),
+            builder: (_) => SuccessPage(
+              nombreCompleto: nombreCompleto,
+              alreadyScanned: already,
+              asistioAt: asistioAt,
+            ),
           ),
         );
 
@@ -130,64 +138,76 @@ class _ScannerPageState extends State<ScannerPage> {
 
 class SuccessPage extends StatelessWidget {
   final String nombreCompleto;
+  final bool alreadyScanned;
+  final String? asistioAt;
 
-  const SuccessPage({super.key, required this.nombreCompleto});
+  const SuccessPage({
+    super.key,
+    required this.nombreCompleto,
+    this.alreadyScanned = false,
+    this.asistioAt,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final title = alreadyScanned ? 'Asistencia ya registrada' : 'Asistencia registrada';
+    final icon = alreadyScanned ? Icons.info_outline : Icons.check_circle_outline;
+    final iconColor = alreadyScanned ? Colors.orange : Colors.green;
+
     return Scaffold(
-      backgroundColor: Colors.green.shade50,
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+      appBar: AppBar(
+        title: const Text('Resultado'),
+        centerTitle: true,
+        backgroundColor: iconColor,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 18),
+            Icon(icon, size: 88, color: iconColor),
+            const SizedBox(height: 18),
+            Text(
+              title,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: iconColor),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 14),
+            Text(
+              nombreCompleto.isNotEmpty ? nombreCompleto : 'Nombre desconocido',
+              style: const TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            if (asistioAt != null && asistioAt!.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              Text(
+                alreadyScanned
+                    ? 'Primera lectura: $asistioAt'
+                    : 'Fecha y hora: $asistioAt',
+                style: const TextStyle(fontSize: 14, color: Colors.black54),
+                textAlign: TextAlign.center,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.check_circle, size: 72, color: Colors.green),
-                    const SizedBox(height: 16),
-                    const Text(
-                      '¡Bienvenido/a!',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      nombreCompleto.isEmpty ? 'Participante' : nombreCompleto,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 28),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.qr_code_scanner),
-                        label: const Text('Escanear otro QR'),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          textStyle: const TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+            ],
+            const Spacer(),
+            ElevatedButton.icon(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back),
+              label: const Text('Aceptar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: iconColor,
+                minimumSize: const Size(double.infinity, 48),
               ),
             ),
-          ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () {
+                // Volver al scanner (pop)
+                Navigator.pop(context);
+              },
+              child: const Text('Volver a escanear'),
+            ),
+          ],
         ),
       ),
     );

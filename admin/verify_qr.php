@@ -3,16 +3,6 @@ declare(strict_types=1);
 
 require __DIR__ . '/config.php';
 
-/**
- * Endpoint para futura app de lectura QR.
- * Recibe por GET o POST:
- *   - code: contenido QR completo, por ejemplo:
- *     PPK|ID:15|DOC:1234567|COMP:ABC-999
- *
- * Respuesta JSON:
- *   { ok: true/false, message: "...", data: {...} }
- */
-
 header('Content-Type: application/json; charset=utf-8');
 
 $raw = trim((string)($_POST['code'] ?? $_GET['code'] ?? ''));
@@ -22,7 +12,7 @@ if ($raw === '') {
     exit;
 }
 
-// Parse simple: PPK|ID:X|DOC:Y|COMP:Z
+// Formato esperado: PPK|ID:X|DOC:Y|COMP:Z
 $parts = explode('|', $raw);
 if (count($parts) < 4 || $parts[0] !== 'PPK') {
     echo json_encode(['ok' => false, 'message' => 'Formato QR inválido']);
@@ -46,12 +36,23 @@ if (!$id || $doc === null || $comp === null) {
 
 try {
     $st = $pdo->prepare("
-      SELECT p.id, p.nombre, p.apellido, p.documento, p.estado, p.qr_generado, p.qr_data,
-             c.numero_comprobante
-      FROM preinscripciones p
-      LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
-      WHERE p.id = :id
-      LIMIT 1
+        SELECT
+            p.id,
+            p.nombre,
+            p.apellido,
+            p.documento,
+            p.email,
+            p.telefono,
+            p.estado,
+            p.qr_generado,
+            p.qr_data,
+            c.numero_comprobante,
+            p.asistio,
+            p.asistio_at
+        FROM preinscripciones p
+        LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
+        WHERE p.id = :id
+        LIMIT 1
     ");
     $st->execute([':id' => $id]);
     $r = $st->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +62,6 @@ try {
         exit;
     }
 
-    // Validaciones de seguridad
     if ($r['estado'] !== 'pagado') {
         echo json_encode(['ok' => false, 'message' => 'Inscripto no pagado']);
         exit;
@@ -82,17 +82,78 @@ try {
         exit;
     }
 
+    $pdo->beginTransaction();
+
+    $lockSt = $pdo->prepare("
+        SELECT asistio, asistio_at
+        FROM preinscripciones
+        WHERE id = :id
+        FOR UPDATE
+    ");
+    $lockSt->execute([':id' => $id]);
+    $lockRow = $lockSt->fetch(PDO::FETCH_ASSOC);
+
+    if ($lockRow && (int)$lockRow['asistio'] === 1) {
+        $pdo->commit();
+        echo json_encode([
+            'ok' => true,
+            'message' => 'QR válido — ya registrado como asistente',
+            'already_scanned' => true,
+            'data' => [
+                'id' => (int)$r['id'],
+                'nombre' => $r['nombre'],
+                'apellido' => $r['apellido'],
+                'documento' => $r['documento'],
+                'asistio_at' => $lockRow['asistio_at'] ?? null
+            ]
+        ]);
+        exit;
+    }
+
+    $scanner = (string)($_POST['scanner'] ?? $_GET['scanner'] ?? '');
+    $insert = $pdo->prepare("
+        INSERT INTO asistencias (preinscripcion_id, scanner, qr_raw, scan_at)
+        VALUES (:preinscripcion_id, :scanner, :qr_raw, NOW())
+    ");
+    $insert->execute([
+        ':preinscripcion_id' => $id,
+        ':scanner' => $scanner !== '' ? $scanner : null,
+        ':qr_raw' => $raw
+    ]);
+
+    $update = $pdo->prepare("
+        UPDATE preinscripciones
+        SET asistio = 1,
+            asistio_at = NOW()
+        WHERE id = :id
+    ");
+    $update->execute([':id' => $id]);
+
+    $pdo->commit();
+
     echo json_encode([
         'ok' => true,
-        'message' => 'QR válido',
+        'message' => 'Asistencia registrada correctamente',
+        'already_scanned' => false,
         'data' => [
             'id' => (int)$r['id'],
             'nombre' => $r['nombre'],
             'apellido' => $r['apellido'],
             'documento' => $r['documento'],
-            'estado' => $r['estado']
+            'asistio_at' => date('Y-m-d H:i:s')
         ]
     ]);
-} catch (Throwable $e) {
-    echo json_encode(['ok' => false, 'message' => 'Error interno: ' . $e->getMessage()]);
+    exit;
+
+} catch (Exception $e) {
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
+
+    http_response_code(500);
+    echo json_encode([
+        'ok' => false,
+        'message' => 'Error del servidor: ' . $e->getMessage()
+    ]);
+    exit;
 }
