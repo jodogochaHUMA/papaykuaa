@@ -204,6 +204,166 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'envia
 }
 
 /* =========================
+   POST: Agregar inscripto (AJAX or form)
+   ========================= */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'agregar_inscripto') {
+    // allow AJAX calls
+    $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+              strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+    if (!csrf_validate($_POST['csrf'] ?? null)) {
+        $error = 'Token CSRF inválido.';
+        if ($isAjax) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ok' => false, 'message' => $error]);
+            exit;
+        } else {
+            $errorMsg = $error;
+        }
+    } else {
+        $nombre = trim((string)($_POST['nombre'] ?? ''));
+        $apellido = trim((string)($_POST['apellido'] ?? ''));
+        $documento = trim((string)($_POST['documento'] ?? ''));
+        $email = trim((string)($_POST['email'] ?? ''));
+        $telefono = trim((string)($_POST['telefono'] ?? ''));
+        $estado = in_array(trim((string)($_POST['estado'] ?? 'pendiente')), $estadosValidos, true) ? trim((string)$_POST['estado']) : 'pendiente';
+
+        if ($nombre === '' || $apellido === '' || $documento === '') {
+            $err = 'Nombre, apellido y documento son obligatorios.';
+            if ($isAjax) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['ok' => false, 'message' => $err]);
+                exit;
+            } else {
+                $errorMsg = $err;
+            }
+        } else {
+            try {
+                $pdo->beginTransaction();
+
+                $token = bin2hex(random_bytes(32));
+                $ip = $_SERVER['REMOTE_ADDR'] ?? null;
+
+                $ins = $pdo->prepare("
+                    INSERT INTO preinscripciones
+                      (token, nombre, apellido, documento, email, telefono, fecha_registro, ip_origen, estado, qr_generado, qr_enviado)
+                    VALUES
+                      (:token, :nombre, :apellido, :documento, :email, :telefono, NOW(), :ip, :estado, 0, 0)
+                ");
+                $ins->execute([
+                    ':token' => $token,
+                    ':nombre' => $nombre,
+                    ':apellido' => $apellido,
+                    ':documento' => $documento,
+                    ':email' => $email,
+                    ':telefono' => $telefono,
+                    ':ip' => $ip,
+                    ':estado' => $estado,
+                ]);
+
+                $newId = (int)$pdo->lastInsertId();
+
+                $st = $pdo->prepare("
+                  SELECT p.id, p.nombre, p.apellido, p.documento, p.email, p.telefono, p.fecha_registro, p.estado,
+                         p.qr_generado, p.qr_path, p.qr_enviado, p.asistio, p.asistio_at
+                  FROM preinscripciones p
+                  WHERE p.id = :id
+                  LIMIT 1
+                ");
+                $st->execute([':id' => $newId]);
+                $row = $st->fetch(PDO::FETCH_ASSOC);
+
+                $pdo->commit();
+
+                if ($isAjax) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['ok' => true, 'message' => 'Inscripto creado', 'record' => $row]);
+                    exit;
+                } else {
+                    $okMsg = 'Inscripto creado correctamente.';
+                    header('Location: dashboard.php');
+                    exit;
+                }
+            } catch (Throwable $e) {
+                if ($pdo->inTransaction()) $pdo->rollBack();
+                $err = 'No se pudo crear inscripto: ' . $e->getMessage();
+                if ($isAjax) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['ok' => false, 'message' => $err]);
+                    exit;
+                } else {
+                    $errorMsg = $err;
+                }
+            }
+        }
+    }
+}
+
+/* =========================
+   POST: Marcar / desmarcar asistencia (AJAX)
+   ========================= */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'marcar_asistio') {
+    $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+              strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+    if (!csrf_validate($_POST['csrf'] ?? null)) {
+        $err = 'Token CSRF inválido.';
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => false, 'message' => $err]);
+        exit;
+    }
+
+    $id = (int)($_POST['preinscripcion_id'] ?? 0);
+    $valor = ($_POST['valor'] ?? '1') === '1' ? 1 : 0;
+
+    if ($id <= 0) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => false, 'message' => 'ID inválido']);
+        exit;
+    }
+
+    try {
+        $pdo->beginTransaction();
+
+        // obtener qr_data si existe
+        $q = $pdo->prepare("SELECT qr_data FROM preinscripciones WHERE id = :id FOR UPDATE");
+        $q->execute([':id' => $id]);
+        $p = $q->fetch(PDO::FETCH_ASSOC);
+        if (!$p) throw new RuntimeException('Inscripción no encontrada.');
+
+        if ($valor === 1) {
+            $up = $pdo->prepare("UPDATE preinscripciones SET asistio = 1, asistio_at = NOW() WHERE id = :id");
+            $up->execute([':id' => $id]);
+
+            // insertar en asistencias (usar qr_data si existe, si no usar MANUAL tag)
+            $qr_raw = $p['qr_data'] ?? ('MANUAL|ID:' . $id);
+            $insA = $pdo->prepare("INSERT INTO asistencias (preinscripcion_id, scanner, qr_raw, scan_at) VALUES (:pid, NULL, :qr, NOW())");
+            $insA->execute([':pid' => $id, ':qr' => $qr_raw]);
+
+            $pdo->commit();
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ok' => true, 'asistio' => 1, 'asistio_at' => date('Y-m-d H:i:s')]);
+            exit;
+        } else {
+            // desmarcar: actualizar y eliminar registros de asistencias asociados
+            $up = $pdo->prepare("UPDATE preinscripciones SET asistio = 0, asistio_at = NULL WHERE id = :id");
+            $up->execute([':id' => $id]);
+            $del = $pdo->prepare("DELETE FROM asistencias WHERE preinscripcion_id = :id");
+            $del->execute([':id' => $id]);
+            $pdo->commit();
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ok' => true, 'asistio' => 0, 'asistio_at' => null]);
+            exit;
+        }
+    } catch (Throwable $e) {
+        if ($pdo->inTransaction()) $pdo->rollBack();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['ok' => false, 'message' => $e->getMessage()]);
+        exit;
+    }
+}
+
+/* =========================
    Exportar CSV (con filtro de asistencia)
    ========================= */
 if (isset($_GET['export']) && $_GET['export'] === '1') {
@@ -230,7 +390,7 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
       SELECT 
         p.id, p.nombre, p.apellido, p.documento, p.email, p.telefono, p.fecha_registro, p.estado,
         p.qr_generado, p.qr_enviado, c.numero_comprobante, c.tipo,
-        p.asistio, p.asistio_at, p.qr_path
+        p.asistio, p.asistio_at
       FROM preinscripciones p
       LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
       $where
@@ -246,7 +406,7 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
     $out = fopen('php://output', 'w');
     fputcsv($out, [
         'ID','Nombre','Apellido','Documento','Email','Telefono','Fecha registro','Estado',
-        'QR generado','QR enviado','Nro comprobante','Tipo pago','Asistio','Asistio_at','qr_path'
+        'QR generado','QR enviado','Nro comprobante','Tipo pago','Asistio','Asistio_at'
     ], ';');
 
     foreach ($data as $r) {
@@ -255,8 +415,7 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
             $r['fecha_registro'], $r['estado'], $r['qr_generado'], $r['qr_enviado'],
             $r['numero_comprobante'], $r['tipo'],
             isset($r['asistio']) ? (int)$r['asistio'] : 0,
-            $r['asistio_at'] ?? '',
-            $r['qr_path'] ?? ''
+            $r['asistio_at'] ?? ''
         ], ';');
     }
 
@@ -311,7 +470,7 @@ try {
 }
 
 /* =========================
-   Conteos tabs (sin filtrar por asistencia, mantienen su comportamiento original)
+   Conteos tabs (sin filtrar por asistencia)
    ========================= */
 $counts = ['todos' => 0, 'pendiente' => 0, 'pagado' => 0];
 try {
@@ -331,27 +490,6 @@ try {
     $counts['todos'] = $total;
 } catch (Throwable $e) {
 }
-
-/* Helper: obtener ruta pública del QR desde el valor en DB
-   - DB guarda "admin/qrs/..." pero desde dashboard.php (que está en /admin/)
-     la ruta pública a usar es "qrs/..." (como src="./qrs/qr_x.png").
-   - Normalizamos y evitamos rutas peligrosas.
-*/
-function qrPublicPathFromDb(?string $dbPath): ?string {
-    if (empty($dbPath)) return null;
-    // Esperamos rutas tipo "admin/qrs/..." o "qrs/..."
-    $p = str_replace('\\', '/', $dbPath);
-    // quitar prefijo "admin/" si existe
-    if (strpos($p, 'admin/') === 0) {
-        $p = substr($p, strlen('admin/'));
-    }
-    // Asegurarnos que queda dentro de la carpeta qrs
-    if (strpos($p, 'qrs/') !== 0) {
-        return null;
-    }
-    // retornar ruta relativa para usar en el src del navegador desde /admin/
-    return $p;
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -367,7 +505,7 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
     .badge-asistio-yes { background:#28a745; color:#fff; padding:4px 8px; border-radius:6px; }
     .badge-asistio-no  { background:#6c757d; color:#fff; padding:4px 8px; border-radius:6px; }
     .filter-controls { display:flex; align-items:center; gap:8px; }
-    .qr-thumb { max-width:70px; max-height:70px; display:block; }
+    .qr-thumb { max-width:100%; height:auto; display:block; margin:0 auto; }
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -442,13 +580,19 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
               <?php endforeach; ?>
             </ul>
 
-            <div class="filter-controls">
-              <label class="mb-0 mr-1">Filtrar por asistencia:</label>
-              <select id="filterAsistio" class="form-control form-control-sm">
-                <option value="">Todos</option>
-                <option value="1" <?= $filtroAsistio === '1' ? 'selected' : '' ?>>Asistieron</option>
-                <option value="0" <?= $filtroAsistio === '0' ? 'selected' : '' ?>>No asistieron</option>
-              </select>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <div class="filter-controls">
+                <label class="mb-0 mr-1">Filtrar por asistencia:</label>
+                <select id="filterAsistio" class="form-control form-control-sm">
+                  <option value="">Todos</option>
+                  <option value="1" <?= $filtroAsistio === '1' ? 'selected' : '' ?>>Asistieron</option>
+                  <option value="0" <?= $filtroAsistio === '0' ? 'selected' : '' ?>>No asistieron</option>
+                </select>
+              </div>
+
+              <button id="btnNuevoInscripto" class="btn btn-primary btn-sm">
+                <i class="fas fa-user-plus"></i> Nuevo inscripto
+              </button>
             </div>
           </div>
 
@@ -483,9 +627,9 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
                     $qrGenerado = (int)$r['qr_generado'] === 1;
                     $qrEnviado = (int)$r['qr_enviado'] === 1;
                     $asistio = isset($r['asistio']) ? (int)$r['asistio'] : 0;
-                    $qrPublic = qrPublicPathFromDb($r['qr_path'] ?? null);
+                    $qrUrl = $r['qr_path'] ? ('/' . ltrim($r['qr_path'], '/')) : '';
                     ?>
-                  <tr>
+                  <tr data-id="<?= (int)$r['id'] ?>">
                     <td><?= (int)$r['id'] ?></td>
                     <td><?= htmlspecialchars($r['nombre'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($r['apellido'], ENT_QUOTES, 'UTF-8') ?></td>
@@ -495,7 +639,7 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
                     <td><?= htmlspecialchars($r['fecha_registro'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><span class="badge <?= $badge ?>"><?= htmlspecialchars($estado, ENT_QUOTES, 'UTF-8') ?></span></td>
 
-                    <td class="text-center">
+                    <td class="text-center asistio-cell">
                       <?php if ($asistio === 1): ?>
                         <span class="badge-asistio-yes">SI</span>
                       <?php else: ?>
@@ -503,27 +647,11 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
                       <?php endif; ?>
                     </td>
 
-                    <td>
-                      <?php if ($qrGenerado && $qrPublic): ?>
-                        <img src="<?= htmlspecialchars($qrPublic, ENT_QUOTES, 'UTF-8') ?>" class="qr-thumb" alt="QR <?= (int)$r['id'] ?>">
-                      <?php elseif ($qrGenerado): ?>
-                        <span class="badge badge-info">Generado (ruta no pública)</span>
-                      <?php else: ?>
-                        <span class="badge badge-secondary">Pendiente</span>
-                      <?php endif; ?>
+                    <td class="text-center">
+                      <?= $qrGenerado ? '<span class="badge badge-info">Generado</span>' : '<span class="badge badge-secondary">Pendiente</span>' ?>
                     </td>
 
                     <td style="white-space:nowrap;">
-                      <!-- Ver QR -->
-                      <button
-                        type="button"
-                        class="btn btn-secondary btn-sm btn-ver-qr"
-                        data-qr="<?= htmlspecialchars($r['qr_path'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                        <?= $qrGenerado && $qrPublic ? '' : 'disabled' ?>
-                      >
-                        <i class="fas fa-eye"></i> Ver QR
-                      </button>
-
                       <!-- Agregar comprobante: solo pendiente -->
                       <button
                           type="button"
@@ -536,7 +664,7 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
                       </button>
 
                       <!-- Generar QR: solo pagado y no generado -->
-                      <form method="post" class="d-inline">
+                      <form method="post" class="d-inline" style="display:inline-block;margin:0 3px;">
                         <input type="hidden" name="csrf" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="accion" value="generar_qr">
                         <input type="hidden" name="preinscripcion_id" value="<?= (int)$r['id'] ?>">
@@ -549,8 +677,8 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
                         </button>
                       </form>
 
-                      <!-- Enviar QR individual: solo si qr generado and not sent -->
-                      <form method="post" class="d-inline">
+                      <!-- Enviar QR individual: solo si qr generado y no enviado -->
+                      <form method="post" class="d-inline" style="display:inline-block;margin:0 3px;">
                         <input type="hidden" name="csrf" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="accion" value="enviar_qr_individual">
                         <input type="hidden" name="preinscripcion_id" value="<?= (int)$r['id'] ?>">
@@ -562,6 +690,28 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
                           <i class="fas fa-paper-plane"></i> Enviar QR
                         </button>
                       </form>
+
+                      <!-- Ver QR (si existe) -->
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-ver-qr"
+                        data-qr="<?= htmlspecialchars($qrUrl, ENT_QUOTES, 'UTF-8') ?>"
+                        data-nombre="<?= htmlspecialchars($r['nombre'] . ' ' . $r['apellido'], ENT_QUOTES, 'UTF-8') ?>"
+                        <?= $qrGenerado ? '' : 'disabled' ?>
+                      >
+                        <i class="fas fa-eye"></i> Ver QR
+                      </button>
+
+                      <!-- Marcar asistencia (AJAX) -->
+                      <?php if ($asistio === 0): ?>
+                        <button type="button" class="btn btn-outline-success btn-sm btn-marcar-asistio" data-id="<?= (int)$r['id'] ?>" data-valor="1" style="margin-left:6px;">
+                          <i class="fas fa-check"></i> Marcar asistencia
+                        </button>
+                      <?php else: ?>
+                        <button type="button" class="btn btn-outline-danger btn-sm btn-marcar-asistio" data-id="<?= (int)$r['id'] ?>" data-valor="0" style="margin-left:6px;">
+                          <i class="fas fa-times"></i> Quitar asistencia
+                        </button>
+                      <?php endif; ?>
                     </td>
                   </tr>
                 <?php endforeach; ?>
@@ -619,20 +769,66 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
 
 <!-- Modal Ver QR -->
 <div class="modal fade" id="modalVerQr" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Código QR</h5>
+        <h5 class="modal-title">Código QR - <span id="qr_nombre"></span></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body text-center">
-        <img id="qrImage" src="" alt="QR" style="max-width:100%; height:auto;">
-      </div>
-      <div class="modal-footer">
-        <a id="qrDownload" class="btn btn-primary" href="#" download>Descargar</a>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <img id="qr_img" class="qr-thumb" src="" alt="QR">
+        <p class="mt-2"><a id="qr_download" href="#" class="btn btn-sm btn-outline-primary" download>Descargar</a></p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal Agregar Inscripto -->
+<div class="modal fade" id="modalAgregarInscripto" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="formAgregarInscripto" method="post" class="modal-content" action="dashboard.php">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar nuevo inscripto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="csrf" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+        <input type="hidden" name="accion" value="agregar_inscripto">
+
+        <div class="form-group">
+          <label>Nombre *</label>
+          <input name="nombre" class="form-control" required maxlength="100">
+        </div>
+        <div class="form-group">
+          <label>Apellido *</label>
+          <input name="apellido" class="form-control" required maxlength="100">
+        </div>
+        <div class="form-group">
+          <label>Documento *</label>
+          <input name="documento" class="form-control" required maxlength="40">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input name="email" class="form-control" type="email" maxlength="150">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input name="telefono" class="form-control" maxlength="30">
+        </div>
+        <div class="form-group">
+          <label>Estado</label>
+          <select name="estado" class="form-control">
+            <option value="pendiente">Pendiente</option>
+            <option value="pagado">Pagado</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Crear inscripto</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -643,7 +839,8 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
 <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
 <script>
   $(function () {
-    $("#tablaInscriptos").DataTable({
+    // inicializar DataTable y guardar instancia
+    var table = $("#tablaInscriptos").DataTable({
       responsive: true,
       autoWidth: false,
       pageLength: 25,
@@ -651,15 +848,68 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
       language: { url: "https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json" }
     });
 
-    $('.btn-comprobante').on('click', function() {
+    // delegado: abrir modal comprobante
+    $(document).on('click', '.btn-comprobante', function() {
       const id = $(this).data('id');
-      const nombre = $(this).data('nombre');
+      const nombre = $(this).data('nombre') || '';
       $('#mc_preinscripcion_id').val(id);
       $('#mc_nombre').text(nombre);
       $('#modalComprobante').modal('show');
     });
 
-    // manejar cambio de filtro por asistencia
+    // delegado: ver QR
+    $(document).on('click', '.btn-ver-qr', function() {
+      const qr = $(this).data('qr') || '';
+      const nombre = $(this).data('nombre') || '';
+      if (!qr) return;
+      $('#qr_nombre').text(nombre);
+      $('#qr_img').attr('src', qr + '?t=' + Date.now());
+      $('#qr_download').attr('href', qr);
+      $('#modalVerQr').modal('show');
+    });
+
+    // delegado: marcar / desmarcar asistencia (AJAX)
+    $(document).on('click', '.btn-marcar-asistio', function() {
+      const $btn = $(this);
+      const id = $btn.data('id');
+      const valor = $btn.data('valor') === 1 || $btn.data('valor') === '1' ? '1' : '0';
+      $btn.prop('disabled', true).text((valor === '1') ? 'Marcando...' : 'Quitando...');
+      $.ajax({
+        url: 'dashboard.php',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          accion: 'marcar_asistio',
+          preinscripcion_id: id,
+          valor: valor,
+          csrf: '<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>'
+        },
+        success: function(resp) {
+          if (resp.ok) {
+            // actualizar fila visualmente
+            var $tr = $('tr[data-id="'+id+'"]');
+            var $cell = $tr.find('.asistio-cell');
+            if (resp.asistio == 1) {
+              $cell.html('<span class="badge-asistio-yes">SI</span>');
+              // cambiar botón a "Quitar asistencia"
+              $tr.find('.btn-marcar-asistio').data('valor', '0').removeClass('btn-outline-success').addClass('btn-outline-danger').html('<i class="fas fa-times"></i> Quitar asistencia');
+            } else {
+              $cell.html('<span class="badge-asistio-no">NO</span>');
+              $tr.find('.btn-marcar-asistio').data('valor', '1').removeClass('btn-outline-danger').addClass('btn-outline-success').html('<i class="fas fa-check"></i> Marcar asistencia');
+            }
+          } else {
+            alert('Error: ' + (resp.message || 'No se pudo actualizar.'));
+          }
+          $btn.prop('disabled', false).text((valor === '1') ? 'Marcar asistencia' : 'Quitar asistencia');
+        },
+        error: function() {
+          alert('Error de conexión al marcar asistencia.');
+          $btn.prop('disabled', false).text((valor === '1') ? 'Marcar asistencia' : 'Quitar asistencia');
+        }
+      });
+    });
+
+    // filtro asistencia: cambiar querystring y recargar
     $('#filterAsistio').on('change', function() {
       const val = $(this).val();
       const params = new URLSearchParams(window.location.search);
@@ -672,30 +922,84 @@ function qrPublicPathFromDb(?string $dbPath): ?string {
       window.location = window.location.pathname + (params.toString() ? ('?' + params.toString()) : '');
     });
 
-    // botón Ver QR -> abre modal con imagen
-    $('.btn-ver-qr').on('click', function () {
-      const dbPath = $(this).data('qr') || '';
-      if (!dbPath) return;
-      // transformar ruta de DB a ruta pública (se aplica la misma lógica que en PHP: quitar "admin/" prefix)
-      let p = dbPath.replace(/\\/g, '/');
-      if (p.indexOf('admin/') === 0) p = p.substring(6);
-      // sólo aceptar si comienza con qrs/
-      if (p.indexOf('qrs/') !== 0) {
-        alert('Ruta de QR inválida o no pública.');
-        return;
-      }
-      // montar src relativo desde /admin/
-      const src = p;
-      $('#qrImage').attr('src', src);
-      $('#qrDownload').attr('href', src);
-      $('#modalVerQr').modal('show');
+    // abrir modal nuevo inscripto
+    $('#btnNuevoInscripto').on('click', function() {
+      $('#formAgregarInscripto')[0].reset();
+      $('#modalAgregarInscripto').modal('show');
     });
 
-    // limpiar modal al cerrar
-    $('#modalVerQr').on('hidden.bs.modal', function() {
-      $('#qrImage').attr('src', '');
-      $('#qrDownload').attr('href', '#');
+    // envío AJAX del formulario de creación (agregar inscripto)
+    $('#formAgregarInscripto').on('submit', function(e) {
+      e.preventDefault();
+      var $form = $(this);
+      var $btn = $form.find('button[type="submit"]');
+      $btn.prop('disabled', true).text('Creando...');
+
+      $.ajax({
+        url: $form.attr('action'),
+        method: 'POST',
+        data: $form.serialize(),
+        dataType: 'json',
+        success: function(resp) {
+          if (resp.ok) {
+            var r = resp.record;
+            // preparar badges y acciones (simplificado)
+            var estadoBadge = '<span class="badge ' + (r.estado === 'pagado' ? 'badge-success' : 'badge-warning') + '">' + (r.estado || '') + '</span>';
+            var qrBadge = (r.qr_generado == 1) ? '<span class="badge badge-info">Generado</span>' : '<span class="badge badge-secondary">Pendiente</span>';
+
+            var acciones = '';
+            acciones += '<button type="button" class="btn btn-primary btn-sm btn-comprobante" data-id="'+ r.id +'" data-nombre="'+ ( (r.nombre||'') + ' ' + (r.apellido||'') ).replace(/"/g,'&quot;') +'"><i class="fas fa-receipt"></i> Comprobante</button> ';
+            acciones += '<form method="post" class="d-inline" style="display:inline-block;margin:0 3px;">' +
+                       '<input type="hidden" name="csrf" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">' +
+                       '<input type="hidden" name="accion" value="generar_qr">' +
+                       '<input type="hidden" name="preinscripcion_id" value="'+ r.id +'">' +
+                       '<button type="submit" class="btn btn-info btn-sm" '+ (r.estado === 'pagado' ? '' : 'disabled') +'><i class="fas fa-qrcode"></i> Generar QR</button>' +
+                       '</form>';
+
+            acciones += '<button type="button" class="btn btn-secondary btn-sm btn-ver-qr" data-qr="" data-nombre="'+ ( (r.nombre||'') + ' ' + (r.apellido||'') ).replace(/"/g,'&quot;') +'" disabled><i class="fas fa-eye"></i> Ver QR</button>';
+
+            acciones += '<button type="button" class="btn btn-outline-success btn-sm btn-marcar-asistio" data-id="'+ r.id +'" data-valor="1" style="margin-left:6px;"><i class="fas fa-check"></i> Marcar asistencia</button>';
+
+            var fecha = r.fecha_registro || '';
+
+            var newRow = table.row.add([
+              r.id,
+              htmlspecialchars_js(r.nombre || ''),
+              htmlspecialchars_js(r.apellido || ''),
+              htmlspecialchars_js(r.documento || ''),
+              htmlspecialchars_js(r.email || ''),
+              htmlspecialchars_js(r.telefono || ''),
+              fecha,
+              estadoBadge,
+              (r.asistio == 1 ? '<span class="badge-asistio-yes">SI</span>' : '<span class="badge-asistio-no">NO</span>'),
+              qrBadge,
+              acciones
+            ]).draw(false);
+
+            $('#modalAgregarInscripto').modal('hide');
+            $btn.prop('disabled', false).text('Crear inscripto');
+          } else {
+            alert(resp.message || 'Error al crear inscripto');
+            $btn.prop('disabled', false).text('Crear inscripto');
+          }
+        },
+        error: function(xhr, status, err) {
+          alert('Error de conexión: ' + err);
+          $btn.prop('disabled', false).text('Crear inscripto');
+        }
+      });
     });
+
+    // helper JS para escapar texto
+    function htmlspecialchars_js(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
   });
 </script>
 </body>
