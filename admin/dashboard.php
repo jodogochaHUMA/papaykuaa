@@ -23,34 +23,6 @@ $errorMsg = '';
 $okMsg = '';
 $estadosValidos = ['pendiente', 'pagado'];
 
-/**
- * IMPORTANTE (ejecutar una sola vez en SQL):
- *
- * ALTER TABLE preinscripciones
- *   MODIFY estado ENUM('pendiente','pagado') NOT NULL DEFAULT 'pendiente';
- *
- * CREATE TABLE IF NOT EXISTS comprobantes_pago (
- *   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
- *   preinscripcion_id INT(10) UNSIGNED NOT NULL,
- *   numero_comprobante VARCHAR(100) NOT NULL,
- *   tipo ENUM('participante','disertante') NOT NULL,
- *   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
- *   UNIQUE KEY uniq_numero_comprobante (numero_comprobante),
- *   UNIQUE KEY uniq_preinscripcion (preinscripcion_id),
- *   CONSTRAINT fk_comprobante_preinscripcion
- *     FOREIGN KEY (preinscripcion_id) REFERENCES preinscripciones(id)
- *     ON DELETE CASCADE
- *     ON UPDATE CASCADE
- * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
- *
- * ALTER TABLE preinscripciones
- *   ADD COLUMN qr_generado TINYINT(1) NOT NULL DEFAULT 0,
- *   ADD COLUMN qr_data VARCHAR(255) NULL,
- *   ADD COLUMN qr_path VARCHAR(255) NULL,
- *   ADD COLUMN qr_enviado TINYINT(1) NOT NULL DEFAULT 0,
- *   ADD COLUMN qr_enviado_at DATETIME NULL;
- */
-
 /* =========================
    POST: Agregar comprobante
    ========================= */
@@ -172,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'gener
 
 /* =========================
    POST: Enviar QR por correo
-   (uno por usuario)
    ========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'enviar_qr_individual') {
     if (!csrf_validate($_POST['csrf'] ?? null)) {
@@ -233,22 +204,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['accion'] ?? '') === 'envia
 }
 
 /* =========================
-   Exportar CSV
+   Exportar CSV (con filtro de asistencia)
    ========================= */
 if (isset($_GET['export']) && $_GET['export'] === '1') {
     $filtroEstado = trim((string)($_GET['estado'] ?? ''));
-    $where = '';
+    $filtroAsistio = trim((string)($_GET['asistio'] ?? '')); // '1' o '0' o ''
+    $whereParts = [];
     $params = [];
 
     if ($filtroEstado !== '' && in_array($filtroEstado, $estadosValidos, true)) {
-        $where = " WHERE p.estado = :estado ";
+        $whereParts[] = "p.estado = :estado";
         $params[':estado'] = $filtroEstado;
+    }
+    if ($filtroAsistio !== '' && in_array($filtroAsistio, ['0', '1'], true)) {
+        $whereParts[] = "p.asistio = :asistio";
+        $params[':asistio'] = (int)$filtroAsistio;
+    }
+
+    $where = '';
+    if (!empty($whereParts)) {
+        $where = ' WHERE ' . implode(' AND ', $whereParts);
     }
 
     $sqlExport = "
       SELECT 
         p.id, p.nombre, p.apellido, p.documento, p.email, p.telefono, p.fecha_registro, p.estado,
-        p.qr_generado, p.qr_enviado, c.numero_comprobante, c.tipo
+        p.qr_generado, p.qr_enviado, c.numero_comprobante, c.tipo,
+        p.asistio, p.asistio_at
       FROM preinscripciones p
       LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
       $where
@@ -264,14 +246,16 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
     $out = fopen('php://output', 'w');
     fputcsv($out, [
         'ID','Nombre','Apellido','Documento','Email','Telefono','Fecha registro','Estado',
-        'QR generado','QR enviado','Nro comprobante','Tipo pago'
+        'QR generado','QR enviado','Nro comprobante','Tipo pago','Asistio','Asistio_at'
     ], ';');
 
     foreach ($data as $r) {
         fputcsv($out, [
             $r['id'], $r['nombre'], $r['apellido'], $r['documento'], $r['email'], $r['telefono'],
             $r['fecha_registro'], $r['estado'], $r['qr_generado'], $r['qr_enviado'],
-            $r['numero_comprobante'], $r['tipo']
+            $r['numero_comprobante'], $r['tipo'],
+            isset($r['asistio']) ? (int)$r['asistio'] : 0,
+            $r['asistio_at'] ?? ''
         ], ';');
     }
 
@@ -280,19 +264,30 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
 }
 
 /* =========================
-   GET: filtro estado
+   GET: filtros estado + asistencia
    ========================= */
 $filtroEstado = trim((string)($_GET['estado'] ?? ''));
-$where = '';
+$filtroAsistio = trim((string)($_GET['asistio'] ?? '')); // '1' o '0' o ''
+
+$whereParts = [];
 $params = [];
 
 if ($filtroEstado !== '' && in_array($filtroEstado, $estadosValidos, true)) {
-    $where = " WHERE p.estado = :estado ";
+    $whereParts[] = "p.estado = :estado";
     $params[':estado'] = $filtroEstado;
+}
+if ($filtroAsistio !== '' && in_array($filtroAsistio, ['0', '1'], true)) {
+    $whereParts[] = "p.asistio = :asistio";
+    $params[':asistio'] = (int)$filtroAsistio;
+}
+
+$where = '';
+if (!empty($whereParts)) {
+    $where = ' WHERE ' . implode(' AND ', $whereParts);
 }
 
 /* =========================
-   Query principal
+   Query principal (incluye asistio)
    ========================= */
 $rows = [];
 try {
@@ -300,7 +295,8 @@ try {
       SELECT
         p.id, p.nombre, p.apellido, p.documento, p.email, p.telefono, p.fecha_registro, p.estado,
         p.qr_generado, p.qr_path, p.qr_enviado, p.qr_enviado_at,
-        c.numero_comprobante, c.tipo
+        c.numero_comprobante, c.tipo,
+        p.asistio, p.asistio_at
       FROM preinscripciones p
       LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
       $where
@@ -314,7 +310,7 @@ try {
 }
 
 /* =========================
-   Conteos tabs
+   Conteos tabs (sin filtrar por asistencia, mantienen su comportamiento original)
    ========================= */
 $counts = ['todos' => 0, 'pendiente' => 0, 'pagado' => 0];
 try {
@@ -345,6 +341,11 @@ try {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
+  <style>
+    .badge-asistio-yes { background:#28a745; color:#fff; padding:4px 8px; border-radius:6px; }
+    .badge-asistio-no  { background:#6c757d; color:#fff; padding:4px 8px; border-radius:6px; }
+    .filter-controls { display:flex; align-items:center; gap:8px; }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -394,8 +395,8 @@ try {
         <?php if ($okMsg): ?><div class="alert alert-success"><?= htmlspecialchars($okMsg, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
 
         <div class="card">
-          <div class="card-header p-2">
-            <ul class="nav nav-pills">
+          <div class="card-header p-2" style="display:flex; justify-content:space-between; align-items:center;">
+            <ul class="nav nav-pills" style="margin:0;">
               <?php
               $tabs = [
                   '' => ['Todos', $counts['todos']],
@@ -405,6 +406,10 @@ try {
               foreach ($tabs as $k => $info):
                   $active = ($filtroEstado === $k) ? 'active' : '';
                   $url = 'dashboard.php' . ($k !== '' ? '?estado=' . urlencode($k) : '');
+                  // preserve asistio filter in tab urls
+                  if ($filtroAsistio !== '') {
+                      $url .= ($k === '' ? '?' : '&') . 'asistio=' . urlencode($filtroAsistio);
+                  }
                   ?>
                 <li class="nav-item">
                   <a class="nav-link <?= $active ?>" href="<?= $url ?>">
@@ -413,10 +418,19 @@ try {
                 </li>
               <?php endforeach; ?>
             </ul>
+
+            <div class="filter-controls">
+              <label class="mb-0 mr-1">Filtrar por asistencia:</label>
+              <select id="filterAsistio" class="form-control form-control-sm">
+                <option value="">Todos</option>
+                <option value="1" <?= $filtroAsistio === '1' ? 'selected' : '' ?>>Asistieron</option>
+                <option value="0" <?= $filtroAsistio === '0' ? 'selected' : '' ?>>No asistieron</option>
+              </select>
+            </div>
           </div>
 
           <div class="card-body">
-            <a href="dashboard.php?export=1<?= $filtroEstado !== '' ? '&estado=' . urlencode($filtroEstado) : '' ?>"
+            <a href="dashboard.php?export=1<?= $filtroEstado !== '' ? '&estado=' . urlencode($filtroEstado) : '' ?><?= $filtroAsistio !== '' ? '&asistio=' . urlencode($filtroAsistio) : '' ?>"
                class="btn btn-success mb-3">
               <i class="fas fa-file-excel"></i> Exportar a Excel (CSV)
             </a>
@@ -433,6 +447,7 @@ try {
                   <th>Teléfono</th>
                   <th>Fecha</th>
                   <th>Estado</th>
+                  <th>Asistió</th>
                   <th>QR</th>
                   <th>Acciones</th>
                 </tr>
@@ -444,6 +459,7 @@ try {
                     $badge = $estado === 'pagado' ? 'badge-success' : 'badge-warning';
                     $qrGenerado = (int)$r['qr_generado'] === 1;
                     $qrEnviado = (int)$r['qr_enviado'] === 1;
+                    $asistio = isset($r['asistio']) ? (int)$r['asistio'] : 0;
                     ?>
                   <tr>
                     <td><?= (int)$r['id'] ?></td>
@@ -454,8 +470,17 @@ try {
                     <td><?= htmlspecialchars($r['telefono'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($r['fecha_registro'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><span class="badge <?= $badge ?>"><?= htmlspecialchars($estado, ENT_QUOTES, 'UTF-8') ?></span></td>
+
+                    <td class="text-center">
+                      <?php if ($asistio === 1): ?>
+                        <span class="badge-asistio-yes">SI</span>
+                      <?php else: ?>
+                        <span class="badge-asistio-no">NO</span>
+                      <?php endif; ?>
+                    </td>
+
                     <td><?= $qrGenerado ? '<span class="badge badge-info">Generado</span>' : '<span class="badge badge-secondary">Pendiente</span>' ?></td>
-                    
+
                     <td style="white-space:nowrap;">
                       <!-- Agregar comprobante: solo pendiente -->
                       <button
@@ -571,6 +596,19 @@ try {
       $('#mc_preinscripcion_id').val(id);
       $('#mc_nombre').text(nombre);
       $('#modalComprobante').modal('show');
+    });
+
+    // manejar cambio de filtro por asistencia
+    $('#filterAsistio').on('change', function() {
+      const val = $(this).val();
+      const params = new URLSearchParams(window.location.search);
+      if (val === '') {
+        params.delete('asistio');
+      } else {
+        params.set('asistio', val);
+      }
+      // mantener estado si existe
+      window.location = window.location.pathname + (params.toString() ? ('?' + params.toString()) : '');
     });
   });
 </script>

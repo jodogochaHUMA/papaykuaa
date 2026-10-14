@@ -1,18 +1,17 @@
 <?php
 declare(strict_types=1);
-
 require __DIR__ . '/config.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
 $raw = trim((string)($_POST['code'] ?? $_GET['code'] ?? ''));
-
+$scanner = trim((string)($_POST['scanner'] ?? $_GET['scanner'] ?? '')); // opcional: nombre del escáner
 if ($raw === '') {
     echo json_encode(['ok' => false, 'message' => 'Parámetro code requerido']);
     exit;
 }
 
-// Formato esperado: PPK|ID:X|DOC:Y|COMP:Z
+// Parse simple: PPK|ID:X|DOC:Y|COMP:Z
 $parts = explode('|', $raw);
 if (count($parts) < 4 || $parts[0] !== 'PPK') {
     echo json_encode(['ok' => false, 'message' => 'Formato QR inválido']);
@@ -35,39 +34,34 @@ if (!$id || $doc === null || $comp === null) {
 }
 
 try {
+    $pdo->beginTransaction();
+
     $st = $pdo->prepare("
-        SELECT
-            p.id,
-            p.nombre,
-            p.apellido,
-            p.documento,
-            p.email,
-            p.telefono,
-            p.estado,
-            p.qr_generado,
-            p.qr_data,
-            c.numero_comprobante,
-            p.asistio,
-            p.asistio_at
-        FROM preinscripciones p
-        LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
-        WHERE p.id = :id
-        LIMIT 1
+      SELECT p.id, p.nombre, p.apellido, p.documento, p.estado, p.qr_generado, p.qr_data,
+             c.numero_comprobante
+      FROM preinscripciones p
+      LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
+      WHERE p.id = :id
+      LIMIT 1
     ");
     $st->execute([':id' => $id]);
     $r = $st->fetch(PDO::FETCH_ASSOC);
 
     if (!$r) {
+        $pdo->rollBack();
         echo json_encode(['ok' => false, 'message' => 'Inscripto no encontrado']);
         exit;
     }
 
+    // Validaciones de seguridad
     if ($r['estado'] !== 'pagado') {
+        $pdo->rollBack();
         echo json_encode(['ok' => false, 'message' => 'Inscripto no pagado']);
         exit;
     }
 
     if ((int)$r['qr_generado'] !== 1) {
+        $pdo->rollBack();
         echo json_encode(['ok' => false, 'message' => 'QR no generado']);
         exit;
     }
@@ -78,82 +72,60 @@ try {
         hash_equals((string)($r['qr_data'] ?? ''), (string)$raw);
 
     if (!$matches) {
+        $pdo->rollBack();
         echo json_encode(['ok' => false, 'message' => 'QR no coincide con registro']);
         exit;
     }
 
-    $pdo->beginTransaction();
+    // ¿ya existe un registro de escaneo idéntico?
+    $chk = $pdo->prepare("SELECT id, scan_at, scanner FROM asistencias WHERE preinscripcion_id = :pid AND qr_raw = :qr LIMIT 1");
+    $chk->execute([':pid' => $id, ':qr' => $raw]);
+    $exists = $chk->fetch(PDO::FETCH_ASSOC);
 
-    $lockSt = $pdo->prepare("
-        SELECT asistio, asistio_at
-        FROM preinscripciones
-        WHERE id = :id
-        FOR UPDATE
-    ");
-    $lockSt->execute([':id' => $id]);
-    $lockRow = $lockSt->fetch(PDO::FETCH_ASSOC);
-
-    if ($lockRow && (int)$lockRow['asistio'] === 1) {
+    if ($exists) {
+        // Ya escaneado: devolvemos info pero NO insertamos otro registro
         $pdo->commit();
         echo json_encode([
             'ok' => true,
-            'message' => 'QR válido — ya registrado como asistente',
+            'message' => 'QR válido — ya escaneado',
             'already_scanned' => true,
             'data' => [
                 'id' => (int)$r['id'],
                 'nombre' => $r['nombre'],
                 'apellido' => $r['apellido'],
                 'documento' => $r['documento'],
-                'asistio_at' => $lockRow['asistio_at'] ?? null
+                'scan_at' => $exists['scan_at'],
+                'scanner' => $exists['scanner'] ?? ''
             ]
         ]);
         exit;
     }
 
-    $scanner = (string)($_POST['scanner'] ?? $_GET['scanner'] ?? '');
-    $insert = $pdo->prepare("
-        INSERT INTO asistencias (preinscripcion_id, scanner, qr_raw, scan_at)
-        VALUES (:preinscripcion_id, :scanner, :qr_raw, NOW())
-    ");
-    $insert->execute([
-        ':preinscripcion_id' => $id,
-        ':scanner' => $scanner !== '' ? $scanner : null,
-        ':qr_raw' => $raw
-    ]);
-
-    $update = $pdo->prepare("
-        UPDATE preinscripciones
-        SET asistio = 1,
-            asistio_at = NOW()
-        WHERE id = :id
-    ");
-    $update->execute([':id' => $id]);
+    // Insert asistencia
+    $ins = $pdo->prepare("INSERT INTO asistencias (preinscripcion_id, scanner, qr_raw, scan_at) VALUES (:pid, :scanner, :qr, NOW())");
+    $ins->execute([':pid' => $id, ':scanner' => $scanner ?: null, ':qr' => $raw]);
+    // Actualizar preinscripciones
+    $upd = $pdo->prepare("UPDATE preinscripciones SET asistio = 1, asistio_at = NOW() WHERE id = :id");
+    $upd->execute([':id' => $id]);
 
     $pdo->commit();
 
     echo json_encode([
         'ok' => true,
-        'message' => 'Asistencia registrada correctamente',
+        'message' => 'QR válido y asistencia registrada',
         'already_scanned' => false,
         'data' => [
             'id' => (int)$r['id'],
             'nombre' => $r['nombre'],
             'apellido' => $r['apellido'],
             'documento' => $r['documento'],
-            'asistio_at' => date('Y-m-d H:i:s')
+            'scan_at' => date('Y-m-d H:i:s'),
+            'scanner' => $scanner
         ]
     ]);
     exit;
-
-} catch (Exception $e) {
-    if ($pdo->inTransaction()) {
-        $pdo->rollBack();
-    }
-
-    http_response_code(500);
-    echo json_encode([
-        'ok' => false,
-        'message' => 'Error del servidor: ' . $e->getMessage()
-    ]);
+} catch (Throwable $e) {
+    if ($pdo->inTransaction()) $pdo->rollBack();
+    echo json_encode(['ok' => false, 'message' => 'Error interno: ' . $e->getMessage()]);
     exit;
 }
