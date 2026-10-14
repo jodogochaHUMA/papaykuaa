@@ -230,7 +230,7 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
       SELECT 
         p.id, p.nombre, p.apellido, p.documento, p.email, p.telefono, p.fecha_registro, p.estado,
         p.qr_generado, p.qr_enviado, c.numero_comprobante, c.tipo,
-        p.asistio, p.asistio_at
+        p.asistio, p.asistio_at, p.qr_path
       FROM preinscripciones p
       LEFT JOIN comprobantes_pago c ON c.preinscripcion_id = p.id
       $where
@@ -246,7 +246,7 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
     $out = fopen('php://output', 'w');
     fputcsv($out, [
         'ID','Nombre','Apellido','Documento','Email','Telefono','Fecha registro','Estado',
-        'QR generado','QR enviado','Nro comprobante','Tipo pago','Asistio','Asistio_at'
+        'QR generado','QR enviado','Nro comprobante','Tipo pago','Asistio','Asistio_at','qr_path'
     ], ';');
 
     foreach ($data as $r) {
@@ -255,7 +255,8 @@ if (isset($_GET['export']) && $_GET['export'] === '1') {
             $r['fecha_registro'], $r['estado'], $r['qr_generado'], $r['qr_enviado'],
             $r['numero_comprobante'], $r['tipo'],
             isset($r['asistio']) ? (int)$r['asistio'] : 0,
-            $r['asistio_at'] ?? ''
+            $r['asistio_at'] ?? '',
+            $r['qr_path'] ?? ''
         ], ';');
     }
 
@@ -330,6 +331,27 @@ try {
     $counts['todos'] = $total;
 } catch (Throwable $e) {
 }
+
+/* Helper: obtener ruta pública del QR desde el valor en DB
+   - DB guarda "admin/qrs/..." pero desde dashboard.php (que está en /admin/)
+     la ruta pública a usar es "qrs/..." (como src="./qrs/qr_x.png").
+   - Normalizamos y evitamos rutas peligrosas.
+*/
+function qrPublicPathFromDb(?string $dbPath): ?string {
+    if (empty($dbPath)) return null;
+    // Esperamos rutas tipo "admin/qrs/..." o "qrs/..."
+    $p = str_replace('\\', '/', $dbPath);
+    // quitar prefijo "admin/" si existe
+    if (strpos($p, 'admin/') === 0) {
+        $p = substr($p, strlen('admin/'));
+    }
+    // Asegurarnos que queda dentro de la carpeta qrs
+    if (strpos($p, 'qrs/') !== 0) {
+        return null;
+    }
+    // retornar ruta relativa para usar en el src del navegador desde /admin/
+    return $p;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -345,6 +367,7 @@ try {
     .badge-asistio-yes { background:#28a745; color:#fff; padding:4px 8px; border-radius:6px; }
     .badge-asistio-no  { background:#6c757d; color:#fff; padding:4px 8px; border-radius:6px; }
     .filter-controls { display:flex; align-items:center; gap:8px; }
+    .qr-thumb { max-width:70px; max-height:70px; display:block; }
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -460,6 +483,7 @@ try {
                     $qrGenerado = (int)$r['qr_generado'] === 1;
                     $qrEnviado = (int)$r['qr_enviado'] === 1;
                     $asistio = isset($r['asistio']) ? (int)$r['asistio'] : 0;
+                    $qrPublic = qrPublicPathFromDb($r['qr_path'] ?? null);
                     ?>
                   <tr>
                     <td><?= (int)$r['id'] ?></td>
@@ -479,9 +503,27 @@ try {
                       <?php endif; ?>
                     </td>
 
-                    <td><?= $qrGenerado ? '<span class="badge badge-info">Generado</span>' : '<span class="badge badge-secondary">Pendiente</span>' ?></td>
+                    <td>
+                      <?php if ($qrGenerado && $qrPublic): ?>
+                        <img src="<?= htmlspecialchars($qrPublic, ENT_QUOTES, 'UTF-8') ?>" class="qr-thumb" alt="QR <?= (int)$r['id'] ?>">
+                      <?php elseif ($qrGenerado): ?>
+                        <span class="badge badge-info">Generado (ruta no pública)</span>
+                      <?php else: ?>
+                        <span class="badge badge-secondary">Pendiente</span>
+                      <?php endif; ?>
+                    </td>
 
                     <td style="white-space:nowrap;">
+                      <!-- Ver QR -->
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-sm btn-ver-qr"
+                        data-qr="<?= htmlspecialchars($r['qr_path'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                        <?= $qrGenerado && $qrPublic ? '' : 'disabled' ?>
+                      >
+                        <i class="fas fa-eye"></i> Ver QR
+                      </button>
+
                       <!-- Agregar comprobante: solo pendiente -->
                       <button
                           type="button"
@@ -507,7 +549,7 @@ try {
                         </button>
                       </form>
 
-                      <!-- Enviar QR individual: solo si qr generado y no enviado -->
+                      <!-- Enviar QR individual: solo si qr generado and not sent -->
                       <form method="post" class="d-inline">
                         <input type="hidden" name="csrf" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="accion" value="enviar_qr_individual">
@@ -575,6 +617,25 @@ try {
   </div>
 </div>
 
+<!-- Modal Ver QR -->
+<div class="modal fade" id="modalVerQr" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Código QR</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="qrImage" src="" alt="QR" style="max-width:100%; height:auto;">
+      </div>
+      <div class="modal-footer">
+        <a id="qrDownload" class="btn btn-primary" href="#" download>Descargar</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
@@ -609,6 +670,31 @@ try {
       }
       // mantener estado si existe
       window.location = window.location.pathname + (params.toString() ? ('?' + params.toString()) : '');
+    });
+
+    // botón Ver QR -> abre modal con imagen
+    $('.btn-ver-qr').on('click', function () {
+      const dbPath = $(this).data('qr') || '';
+      if (!dbPath) return;
+      // transformar ruta de DB a ruta pública (se aplica la misma lógica que en PHP: quitar "admin/" prefix)
+      let p = dbPath.replace(/\\/g, '/');
+      if (p.indexOf('admin/') === 0) p = p.substring(6);
+      // sólo aceptar si comienza con qrs/
+      if (p.indexOf('qrs/') !== 0) {
+        alert('Ruta de QR inválida o no pública.');
+        return;
+      }
+      // montar src relativo desde /admin/
+      const src = p;
+      $('#qrImage').attr('src', src);
+      $('#qrDownload').attr('href', src);
+      $('#modalVerQr').modal('show');
+    });
+
+    // limpiar modal al cerrar
+    $('#modalVerQr').on('hidden.bs.modal', function() {
+      $('#qrImage').attr('src', '');
+      $('#qrDownload').attr('href', '#');
     });
   });
 </script>
